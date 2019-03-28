@@ -2,22 +2,17 @@ package org.ccrto.openapi.values.json;
 
 import java.io.IOException;
 
-import org.springframework.stereotype.Component;
+import org.ccrto.openapi.values.CcrtoPropertyList;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-import pro.ibpm.mercury.attrs.javax.ListValue;
-
 @SuppressWarnings("rawtypes")
-@Component
-public class ListValueSerializer extends JsonSerializer<ListValue> {
+public class ListValueSerializer extends JsonSerializer<CcrtoPropertyList> {
 
 	@Override
-	public void serialize(ListValue list, JsonGenerator gen, SerializerProvider serializers)
-			throws IOException, JsonProcessingException {
+	public void serialize(CcrtoPropertyList list, JsonGenerator gen, SerializerProvider serializers) throws IOException {
 		gen.writeObject(list.getValue());
 	}
 

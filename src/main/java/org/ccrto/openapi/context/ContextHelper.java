@@ -357,14 +357,15 @@ public class ContextHelper {
 	 * 
 	 * @param context
 	 *            kontekst wykonywanej operacji
-	 * @return format daty odczytany z kontekstu lub {@link #MRC_XML_DATE_FORMAT}
+	 * @return format daty odczytany z kontekstu lub
+	 *         {@link SystemPropertiesDefaults#DATE_FORMAT}
 	 */
 	public static String getShortDateFormatPattern(Context context) {
 		String shortDateFormatPattern = null;
 		SystemProperties systemProperties = null;
 		if (context != null) {
 			ContextFormats formats = context.getFormats();
-			shortDateFormatPattern = formats.getDateShortFormat();
+			shortDateFormatPattern = (formats != null ? formats.getDateShortFormat() : null);
 			if (StringUtils.isBlank(shortDateFormatPattern)) {
 				String systemName = ContextHelper.getSystemNameInContext(context);
 				systemProperties = SystemProperties.getSystemProperties(systemName);
@@ -385,14 +386,15 @@ public class ContextHelper {
 	 * 
 	 * @param context
 	 *            kontekst wykonywanej operacji
-	 * @return format daty odczytany z kontekstu lub {@link #MRC_XML_DATE_FORMAT}
+	 * @return format daty odczytany z kontekstu lub
+	 *         {@link SystemPropertiesDefaults#DATE_XML_FORMAT}
 	 */
 	public static String getLongDateFormatPattern(Context context) {
 		String longDateFormatPattern = null;
 		SystemProperties systemProperties = null;
 		if (context != null) {
 			ContextFormats formats = context.getFormats();
-			longDateFormatPattern = formats.getDateLongFormat();
+			longDateFormatPattern = (formats != null ? formats.getDateLongFormat() : null);
 			if (StringUtils.isBlank(longDateFormatPattern)) {
 				String systemName = ContextHelper.getSystemNameInContext(context);
 				systemProperties = SystemProperties.getSystemProperties(systemName);
@@ -406,6 +408,139 @@ public class ContextHelper {
 			return SystemPropertiesDefaults.DATE_XML_FORMAT;
 		}
 		return longDateFormatPattern;
+	}
+
+	/**
+	 * Pobranie kodu waluty.
+	 * 
+	 * @param context
+	 *            kontekst wykonywanej operacji
+	 * @return odczytany z kontekstu kod waluty lub
+	 *         {@link SystemPropertiesDefaults#CURRENCY_CODE}
+	 */
+	public static String getCurrencyCode(Context context) {
+		String currencyCode = null;
+		SystemProperties systemProperties = null;
+		if (context != null) {
+			ContextFormats formats = context.getFormats();
+			currencyCode = (formats != null ? formats.getCurrencyCode() : null);
+			if (StringUtils.isBlank(currencyCode)) {
+				String systemName = ContextHelper.getSystemNameInContext(context);
+				systemProperties = SystemProperties.getSystemProperties(systemName);
+				currencyCode = systemProperties.getCurrencyCode();
+			}
+		} else {
+			systemProperties = SystemProperties.getSystemProperties();
+			currencyCode = systemProperties.getCurrencyCode();
+		}
+		if (StringUtils.isBlank(currencyCode)) {
+			return SystemPropertiesDefaults.CURRENCY_CODE;
+		}
+		return currencyCode;
+	}
+
+	/**
+	 * Pobranie formatu liczby dla wartości reprezentującej cenę.
+	 * 
+	 * @param context
+	 *            kontekst wykonywanej operacji
+	 * @return odczytany z kontekstu format wartości ceny lub
+	 *         {@link SystemPropertiesDefaults#CURRENCY_FORMAT}
+	 */
+	public static String getCurrencyFormat(Context context) {
+		String currencyFormat = null;
+		SystemProperties systemProperties = null;
+		if (context != null) {
+			ContextFormats formats = context.getFormats();
+			currencyFormat = (formats != null ? formats.getCurrencyFormat() : null);
+			if (StringUtils.isBlank(currencyFormat)) {
+				String systemName = ContextHelper.getSystemNameInContext(context);
+				systemProperties = SystemProperties.getSystemProperties(systemName);
+				currencyFormat = systemProperties.getCurrencyFormat();
+			}
+		} else {
+			systemProperties = SystemProperties.getSystemProperties();
+			currencyFormat = systemProperties.getCurrencyFormat();
+		}
+		if (StringUtils.isBlank(currencyFormat)) {
+			return SystemPropertiesDefaults.CURRENCY_FORMAT;
+		}
+		return currencyFormat;
+	}
+
+	/**
+	 * Pobranie formatu liczby dla wartości reprezentującej liczbę
+	 * zmiennoprzecinkową.
+	 * 
+	 * @param context
+	 *            kontekst wykonywanej operacji
+	 * @return odczytany z kontekstu format liczby zmiennoprzecinkowej
+	 *         {@link SystemPropertiesDefaults#NUMBER_FORMAT}
+	 */
+	public static String getNumberFormat(Context context) {
+		String numberFormat = null;
+		SystemProperties systemProperties = null;
+		if (context != null) {
+			ContextFormats formats = context.getFormats();
+			numberFormat = (formats != null ? formats.getNumberFormat() : null);
+			if (StringUtils.isBlank(numberFormat)) {
+				String systemName = ContextHelper.getSystemNameInContext(context);
+				systemProperties = SystemProperties.getSystemProperties(systemName);
+				numberFormat = systemProperties.getNumberFormat();
+			}
+		} else {
+			systemProperties = SystemProperties.getSystemProperties();
+			numberFormat = systemProperties.getNumberFormat();
+		}
+		if (StringUtils.isBlank(numberFormat)) {
+			return SystemPropertiesDefaults.NUMBER_FORMAT;
+		}
+		return numberFormat;
+	}
+
+	/**
+	 * Pobranie formatu liczby dla wartości reprezentującej liczbę całkowitą.
+	 * 
+	 * @param context
+	 *            kontekst wykonywanej operacji
+	 * @return odczytany z kontekstu format liczby całkowitej
+	 *         {@link SystemPropertiesDefaults#INTEGER_FORMAT}
+	 */
+	public static String getIntegerFormat(Context context) {
+		String numberFormat = null;
+		SystemProperties systemProperties = null;
+		if (context != null) {
+			ContextFormats formats = context.getFormats();
+			numberFormat = (formats != null ? formats.getIntegerFormat() : null);
+			if (StringUtils.isBlank(numberFormat)) {
+				String systemName = ContextHelper.getSystemNameInContext(context);
+				systemProperties = SystemProperties.getSystemProperties(systemName);
+				numberFormat = systemProperties.getIntegerFormat();
+			}
+		} else {
+			systemProperties = SystemProperties.getSystemProperties();
+			numberFormat = systemProperties.getIntegerFormat();
+		}
+		if (StringUtils.isBlank(numberFormat)) {
+			return SystemPropertiesDefaults.INTEGER_FORMAT;
+		}
+		return numberFormat;
+	}
+
+	public static DecodeMethod getDecodeMethod(Context context, boolean forRequest) {
+		DecodeMethod decodeMethod;
+		DecodeMethod decodeContextMethod;
+		if (forRequest) {
+			decodeContextMethod = context.getDecodeRequest();
+		} else {
+			decodeContextMethod = context.getDecodeResult();
+		}
+		if (decodeContextMethod != null) {
+			decodeMethod = decodeContextMethod;
+		} else {
+			decodeMethod = SystemPropertiesDefaults.DECODE_RESULT_AND_REQUEST;
+		}
+		return decodeMethod;
 	}
 
 }

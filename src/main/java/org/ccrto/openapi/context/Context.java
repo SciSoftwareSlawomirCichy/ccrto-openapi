@@ -9,15 +9,21 @@ import java.util.Set;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang.StringUtils;
+import org.ccrto.openapi.context.xml.RequestPropertiesAdapter;
 import org.ccrto.openapi.refs.InvolvementIdentificationRef;
 import org.ccrto.openapi.refs.SourceOfRequestRef;
 import org.ccrto.openapi.refs.UserRoleRef;
 import org.ccrto.openapi.system.SystemPropertiesDefaults;
+import org.ccrto.openapi.values.utils.CcrtoPropertyTypeUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -37,12 +43,12 @@ public class Context implements Serializable {
 	/** Nazwa aplikacji */
 	@JsonProperty(required = true)
 	@XmlElement(required = true)
-	private String appName;
+	protected String appName;
 
 	/** Wersja aplikacji */
 	@JsonProperty(required = true)
 	@XmlElement(required = true)
-	private String appVersion;
+	protected String appVersion;
 
 	/**
 	 * Dane użytkownika realizującego żądanie. Format zgodny z otwartym standardem
@@ -52,7 +58,7 @@ public class Context implements Serializable {
 	 */
 	@JsonProperty(required = true)
 	@XmlElement(required = true)
-	private UserContext user;
+	protected UserContext user;
 
 	/**
 	 * Identyfikator obecnej rola użytkownika (potrzebne do rejestracji zespołu w
@@ -63,7 +69,7 @@ public class Context implements Serializable {
 	 */
 	@JsonProperty(required = true)
 	@XmlElement(required = true)
-	private UserRoleContext currentRole;
+	protected UserRoleContext currentRole;
 
 	/**
 	 * Lista ról użytkownika (unikalne nazwy/identyfikatory). Niezbędne do
@@ -73,33 +79,38 @@ public class Context implements Serializable {
 	 * @see UserRoleRef
 	 */
 	@JsonProperty(required = true)
-	@XmlElement(required = true)
+	@XmlElementWrapper(name = "userRoles", required = true, nillable = true)
+	@XmlElement(name = CcrtoPropertyTypeUtils.DEFAULT_COLLECTION_ITEM_NAME)
 	private Set<UserRoleContext> userRoles;
 
 	/**
 	 * Czy można ufać ustawionym danym? Wykorzystamy tę flagę do ewentualnej
 	 * aktualizacji danych o użytkowniku
 	 */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false, defaultValue = "false")
-	@XmlElement(required = false, defaultValue = "false")
-	private boolean trustedData = false;
+	@XmlElement(required = false, nillable = true, defaultValue = "false")
+	protected boolean trustedData = false;
 
 	/** Definicja wersji językowej użytkownika */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
-	@XmlElement(required = false)
-	private String locale = SystemPropertiesDefaults.getSystemLocaleTag();
+	@XmlElement(required = false, nillable = true)
+	protected String locale = SystemPropertiesDefaults.getSystemLocaleTag();
 
 	/** Definicja strefy czasowej użytkownika */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
-	@XmlElement(required = false)
-	private String timeZone = SystemPropertiesDefaults.TIMEZONE;
+	@XmlElement(required = false, nillable = true)
+	protected String timeZone = SystemPropertiesDefaults.TIMEZONE;
 
 	/**
 	 * Formaty prezentacji liczb oraz daty
 	 */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
-	@XmlElement(required = false)
-	private ContextFormats formats;
+	@XmlElement(required = false, nillable = true)
+	protected ContextFormats formats;
 
 	/**
 	 * informacja, czy wartości parametrów pojawiających się w żądaniu to wartości
@@ -110,8 +121,8 @@ public class Context implements Serializable {
 	 * @see DecodeMethod
 	 */
 	@JsonProperty(required = true, defaultValue = "DATE_AND_LOB")
-	@XmlElement(required = true, defaultValue = "DATE_AND_LOB")
-	private String decodeRequest = SystemPropertiesDefaults.DECODE_RESULT_AND_REQUEST.name();
+	@XmlElement(required = true, nillable = false, defaultValue = "DATE_AND_LOB")
+	protected DecodeMethod decodeRequest = SystemPropertiesDefaults.DECODE_RESULT_AND_REQUEST;
 
 	/**
 	 * informacja, czy wynik, parametry sprawy mają zdekodowane wartości parametrów
@@ -120,23 +131,24 @@ public class Context implements Serializable {
 	 * 
 	 * @see DecodeMethod
 	 */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false, defaultValue = "DATE_AND_LOB")
-	@XmlElement(required = false, defaultValue = "DATE_AND_LOB")
-	private String decodeResult = SystemPropertiesDefaults.DECODE_RESULT_AND_REQUEST.name();
+	@XmlElement(required = false, nillable = true, defaultValue = "DATE_AND_LOB")
+	protected DecodeMethod decodeResult = SystemPropertiesDefaults.DECODE_RESULT_AND_REQUEST;
 
 	/**
 	 * Akronim aplikacji/źródła pochodzenia żądania akcji
 	 * 
 	 * @see SourceOfRequestRef#getId()
 	 */
-	@JsonProperty(required = false)
-	@XmlElement(required = false)
-	private SourceOfRequestInContext sourceOfRequest;
+	@JsonProperty(required = true)
+	@XmlElement(required = true, nillable = false)
+	protected SourceOfRequestInContext sourceOfRequest;
 
 	/** identyfikator zewnętrznego kontekstu np. SESSION_ID */
 	@JsonProperty(required = true)
-	@XmlElement(required = true)
-	private String rootVersionContextID;
+	@XmlElement(required = true, nillable = false)
+	protected String rootVersionContextID;
 
 	/**
 	 * Parametr do obsługi komunikacji pomiędzy node'ami klastra. Oznacza on, że
@@ -144,32 +156,36 @@ public class Context implements Serializable {
 	 * trafiło żądanie wykonania operacji. Takiego żądania nie można przesłać do
 	 * innego członka klastra.
 	 */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false, defaultValue = "false")
-	@XmlElement(required = false, defaultValue = "false")
-	private boolean directRequest = false;
+	@XmlElement(required = false, nillable = true, defaultValue = "false")
+	protected boolean directRequest = false;
 
 	/**
 	 * Maksymalny poziom zagnieżdżenia dla spraw zależnych zwracanych w wyniku.
 	 */
 	@JsonProperty(required = true, defaultValue = "3")
 	@XmlElement(required = true, defaultValue = "3")
-	private Integer maxDepthResult = SystemPropertiesDefaults.MAX_DEPTH;
+	protected Integer maxDepthResult = SystemPropertiesDefaults.MAX_DEPTH;
 
 	@JsonProperty(required = true)
 	@XmlElement(required = true)
-	private QueryRequestContext queryRequestContext;
+	protected QueryRequestContext queryRequestContext;
 
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
-	@XmlElement(required = false)
-	private SaveRequestContext saveRequestContext;
+	@XmlElement(required = false, nillable = true)
+	protected SaveRequestContext saveRequestContext;
 
 	/**
 	 * dodatkowe parametry wykorzystywane wewnętrznie przez system, do którego
 	 * realizowane jest żądanie.
 	 */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
-	@XmlElement(required = false)
-	private RequestProperties requestProperties;
+	@XmlElement(required = false, nillable = true)
+	@XmlJavaTypeAdapter(RequestPropertiesAdapter.class)
+	protected RequestProperties requestProperties;
 
 	/**
 	 * Domyślny konstruktor
@@ -550,7 +566,7 @@ public class Context implements Serializable {
 	/**
 	 * @return the {@link #decodeResult}
 	 */
-	public String getDecodeResult() {
+	public DecodeMethod getDecodeResult() {
 		return decodeResult;
 	}
 
@@ -558,14 +574,14 @@ public class Context implements Serializable {
 	 * @param decodeResult
 	 *            the {@link #decodeResult} to set
 	 */
-	public void setDecodeResult(String decodeResult) {
+	public void setDecodeResult(DecodeMethod decodeResult) {
 		this.decodeResult = decodeResult;
 	}
 
 	/**
 	 * @return the {@link #decodeRequest}
 	 */
-	public String getDecodeRequest() {
+	public DecodeMethod getDecodeRequest() {
 		return decodeRequest;
 	}
 
@@ -573,7 +589,7 @@ public class Context implements Serializable {
 	 * @param decodeRequest
 	 *            the {@link #decodeRequest} to set
 	 */
-	public void setDecodeRequest(String decodeRequest) {
+	public void setDecodeRequest(DecodeMethod decodeRequest) {
 		this.decodeRequest = decodeRequest;
 	}
 

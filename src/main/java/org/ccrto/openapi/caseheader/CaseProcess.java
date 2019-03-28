@@ -5,10 +5,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 import org.ccrto.openapi.refs.CaseProcessRef;
-import org.ccrto.openapi.values.DateValue;
+import org.ccrto.openapi.values.CcrtoPropertyDate;
 import org.ccrto.openapi.values.json.DateValueDeserializer;
 import org.ccrto.openapi.values.json.DateValueSerializer;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -17,27 +20,37 @@ public class CaseProcess implements CaseProcessRef {
 
 	private static final long serialVersionUID = 3510762390564134184L;
 
+	@JsonProperty(required = true)
 	@XmlElement(required = true, nillable = false)
 	private String id;
 
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String href;
 
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String process;
 
+	@JsonProperty(required = true)
 	@XmlElement(required = true)
 	private CaseProcessStatus status;
 
-	@XmlElement(required = false)
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@JsonSerialize(using = DateValueSerializer.class)
 	@JsonDeserialize(using = DateValueDeserializer.class)
-	private DateValue endDate;
+	@XmlElement(required = false)
+	private CcrtoPropertyDate endDate;
 
-	@XmlElement(required = false)
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@JsonSerialize(using = DateValueSerializer.class)
 	@JsonDeserialize(using = DateValueDeserializer.class)
-	private DateValue dueDate;
+	@XmlElement(required = false)
+	private CcrtoPropertyDate dueDate;
 
 	/**
 	 * @return the {@link #id}
@@ -102,7 +115,7 @@ public class CaseProcess implements CaseProcessRef {
 	/**
 	 * @return the {@link #endDate}
 	 */
-	public DateValue getEndDate() {
+	public CcrtoPropertyDate getEndDate() {
 		return endDate;
 	}
 
@@ -110,14 +123,14 @@ public class CaseProcess implements CaseProcessRef {
 	 * @param endDate
 	 *            the {@link #endDate} to set
 	 */
-	public void setEndDate(DateValue endDate) {
+	public void setEndDate(CcrtoPropertyDate endDate) {
 		this.endDate = endDate;
 	}
 
 	/**
 	 * @return the {@link #dueDate}
 	 */
-	public DateValue getDueDate() {
+	public CcrtoPropertyDate getDueDate() {
 		return dueDate;
 	}
 
@@ -125,7 +138,7 @@ public class CaseProcess implements CaseProcessRef {
 	 * @param dueDate
 	 *            the {@link #dueDate} to set
 	 */
-	public void setDueDate(DateValue dueDate) {
+	public void setDueDate(CcrtoPropertyDate dueDate) {
 		this.dueDate = dueDate;
 	}
 

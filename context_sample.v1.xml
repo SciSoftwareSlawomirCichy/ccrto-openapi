@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:context xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://scisoftware.pl/CCRTO/1.0/Context" xmlns:ns1="http://scisoftware.pl/CCRTO/1.0/CaseHeader">
+   <ns0:appName>Java(TM) SE Runtime Environment</ns0:appName>
+   <ns0:appVersion>1.8.0_112-b15</ns0:appVersion>
+   <ns0:user>
+      <ns0:href>http://localhost/users/slawas</ns0:href>
+      <ns0:id>slawas</ns0:id>
+   </ns0:user>
+   <ns0:currentRole>
+      <ns0:href>http://localhost/roles/SciAdmin</ns0:href>
+      <ns0:id>SciAdmin</ns0:id>
+   </ns0:currentRole>
+   <ns0:userRoles>
+      <ns0:item>
+         <ns0:href>http://localhost/roles/mrc-groupadmin</ns0:href>
+         <ns0:id>mrc-groupadmin</ns0:id>
+      </ns0:item>
+      <ns0:item>
+         <ns0:href>http://localhost/roles/mrc-user</ns0:href>
+         <ns0:id>mrc-user</ns0:id>
+      </ns0:item>
+      <ns0:item>
+         <ns0:href>http://localhost/roles/mrc-admin</ns0:href>
+         <ns0:id>mrc-admin</ns0:id>
+      </ns0:item>
+   </ns0:userRoles>
+   <ns0:trustedData>false</ns0:trustedData>
+   <ns0:locale>pl_PL</ns0:locale>
+   <ns0:timeZone>Europe/Belgrade</ns0:timeZone>
+   <ns0:formats>
+      <ns0:dateShortFormat>yyyy-MM-dd</ns0:dateShortFormat>
+      <ns0:currencyCode>PLN</ns0:currencyCode>
+   </ns0:formats>
+   <ns0:decodeRequest>DATE_AND_LOB</ns0:decodeRequest>
+   <ns0:decodeResult>DATE_AND_LOB</ns0:decodeResult>
+   <ns0:sourceOfRequest>
+      <ns0:href>http://localhost/sources/UNKNOWN</ns0:href>
+      <ns0:id>UNKNOWN</ns0:id>
+   </ns0:sourceOfRequest>
+   <ns0:directRequest>false</ns0:directRequest>
+   <ns0:maxDepthResult>3</ns0:maxDepthResult>
+   <ns0:queryRequestContext>
+      <ns0:maxResults>1000</ns0:maxResults>
+      <ns0:queryTimeout>10000000</ns0:queryTimeout>
+      <ns0:lazilyFetchType>false</ns0:lazilyFetchType>
+      <ns0:ignoreAlternateNamesOfFields>true</ns0:ignoreAlternateNamesOfFields>
+      <ns0:cacheUsage>TO_USE</ns0:cacheUsage>
+   </ns0:queryRequestContext>
+   <ns0:saveRequestContext>
+      <ns0:modifyComment>System changes.</ns0:modifyComment>
+      <ns0:valueIsNullIfFieldNotExisisInRequest>false</ns0:valueIsNullIfFieldNotExisisInRequest>
+   </ns0:saveRequestContext>
+   <ns0:requestProperties>
+      <ignoreCaseHeaderInResponse xsi:type="xsd:boolean">false</ignoreCaseHeaderInResponse>
+      <httpResponseCacheUsage xsi:type="xsd:string">NONE</httpResponseCacheUsage>
+   </ns0:requestProperties>
+</ns0:context>

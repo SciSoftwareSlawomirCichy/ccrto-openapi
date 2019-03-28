@@ -6,17 +6,26 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.ccrto.openapi.refs.CaseGroupRef;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @XmlAccessorType(XmlAccessType.NONE)
 public class CaseGroup implements CaseGroupRef {
 
 	private static final long serialVersionUID = -8425795373256319488L;
 
+	@JsonProperty(required = true)
 	@XmlElement(required = true, nillable = false)
 	private String id;
 
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String href;
 
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String group;
 

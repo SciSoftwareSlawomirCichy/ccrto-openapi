@@ -2,29 +2,24 @@ package org.ccrto.openapi.values.json;
 
 import java.io.IOException;
 
-import org.springframework.stereotype.Component;
+import org.ccrto.openapi.values.CcrtoPropertyNameValuePair;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import pro.ibpm.mercury.attrs.javax.NameValuePairValue;
-import pro.ibpm.mercury.entities.beans.NameValuePairBean;
-
-@Component
-public class NameValuePairValueSerializer extends JsonSerializer<NameValuePairValue> {
+public class NameValuePairValueSerializer extends JsonSerializer<CcrtoPropertyNameValuePair> {
 
 	@Override
-	public void serialize(NameValuePairValue value, JsonGenerator gen, SerializerProvider serializers)
-			throws IOException, JsonProcessingException {
+	public void serialize(CcrtoPropertyNameValuePair value, JsonGenerator gen, SerializerProvider serializers)
+			throws IOException {
 
 		ObjectNode jsonObject;
 		jsonObject = JsonNodeFactory.instance.objectNode();
-		jsonObject.put(NameValuePairBean.PROPERTY_NAME, value.getName());
-		jsonObject.put(NameValuePairBean.PROPERTY_VALUE, value.getValue());
+		jsonObject.put(CcrtoPropertyNameValuePair.PROPERTY_NAME, value.getName());
+		jsonObject.put(CcrtoPropertyNameValuePair.PROPERTY_VALUE, value.getValue());
 		gen.writeObject(jsonObject);
 
 	}

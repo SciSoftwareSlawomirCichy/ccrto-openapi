@@ -1,54 +1,56 @@
 package org.ccrto.openapi.values.json;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.Locale;
+import java.math.BigDecimal;
 
-import org.springframework.stereotype.Component;
+import org.ccrto.openapi.context.Context;
+import org.ccrto.openapi.context.ContextHelper;
+import org.ccrto.openapi.context.DecodeMethod;
+import org.ccrto.openapi.values.CcrtoPropertyCurrency;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import pro.ibpm.mercury.attrs.CurrencyValueUtils;
-import pro.ibpm.mercury.attrs.javax.CurrencyValue;
-import pro.ibpm.mercury.context.Context;
-import pro.ibpm.mercury.json.JsonDeserializerException;
-import pro.ibpm.mercury.json.JsonObjectMapper;
-
-@Component
-public class CurrencyValueDeserializer extends JsonDeserializer<CurrencyValue> {
+/**
+ * 
+ * CurrencyValueDeserializer
+ *
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $
+ *
+ */
+public class CurrencyValueDeserializer extends JsonDeserializer<CcrtoPropertyCurrency> {
 
 	@Override
-	public CurrencyValue deserialize(JsonParser p, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException {
+	public CcrtoPropertyCurrency deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+
+		/* deserializacja jest zawsze dla przychodzącego żądania */
+		final boolean forRequest = false;
 
 		Context context = null;
 		if (p.getCodec() instanceof JsonObjectMapper) {
 			JsonObjectMapper codec = (JsonObjectMapper) p.getCodec();
 			context = codec.getContext();
 		}
-
 		JsonNode node = p.getCodec().readTree(p);
-		CurrencyValue currencyValue = new CurrencyValue();
-		String value;
+		CcrtoPropertyCurrency currencyValue;
 		if (node.isTextual()) {
-			value = node.textValue();
+			String value = node.textValue();
+			currencyValue = new CcrtoPropertyCurrency();
+			currencyValue.setObjectValue(value);
+			DecodeMethod decodeMethod = ContextHelper.getDecodeMethod(context, forRequest);
+			boolean isNotEncoded = (DecodeMethod.ALL_WITHOUT_LOB.equals(decodeMethod)
+					|| DecodeMethod.ALL.equals(decodeMethod));
+			if (isNotEncoded) {
+				currencyValue.setIsEncoded(isNotEncoded);
+			}
+		} else if (node.isNumber()) {
+			Double valueAsDouble = (new BigDecimal(node.asText())).doubleValue();
+			currencyValue = CcrtoPropertyCurrency.getInstance(context, valueAsDouble, forRequest);
 		} else {
-			value = node.asText();
-		}
-		try {
-			CurrencyValueUtils.setFromStringValue(context, value, currencyValue);
-		} catch (ParseException e) {
-			Locale lLoc = CurrencyValueUtils.getLocale(context, currencyValue);
-			String formatPattern = CurrencyValueUtils.getFormatPattern(context, currencyValue);
-			String defaultCode = CurrencyValueUtils.getCurrencyCode(context, currencyValue);
-			throw new JsonDeserializerException(
-					String.format("[CurrencyValue] value: %s (locale='%s', formatPattern='%s', code='%s')", value, lLoc,
-							formatPattern, defaultCode),
-					e);
+			currencyValue = new CcrtoPropertyCurrency();
 		}
 		return currencyValue;
 	}

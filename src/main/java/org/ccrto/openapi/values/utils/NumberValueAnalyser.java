@@ -6,18 +6,17 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import pl.slawas.twl4j.Logger;
-import pl.slawas.twl4j.LoggerFactory;
-import pro.ibpm.mercury.attrs.AttributeType;
-import pro.ibpm.mercury.attrs.CurrencyValueUtils;
-import pro.ibpm.mercury.config.MercuryConfig;
+import org.ccrto.openapi.system.SystemProperties;
+import org.ccrto.openapi.values.CcrtoPropertyType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
  * NumberAnalyser wykrywanie liczb oraz typu boolean opisanego za pomocą
  * wartości {@code true} lub {@code false}.
  *
- * @author Sławomir Cichy &lt;slawomir.cichy@ibpm.pro&gt;
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
  * @version $Revision: 1.1 $
  *
  */
@@ -25,7 +24,7 @@ public class NumberValueAnalyser {
 
 	private static final Logger logger = LoggerFactory.getLogger(NumberValueAnalyser.class);
 
-	private static final Map<String, NumberValueAnalyser> locale2PatternMap = new HashMap<String, NumberValueAnalyser>();
+	private static final Map<String, NumberValueAnalyser> locale2PatternMap = new HashMap<>();
 
 	public static final Pattern BOOLEAN_PATTERN = Pattern.compile("^-?[0-1]$");
 
@@ -33,7 +32,7 @@ public class NumberValueAnalyser {
 
 	public static final String NUMBER_PATTERN = "[.,]{0,1}\\d+";
 
-	public static final String CURRENCY_CODE_PATTERN = CurrencyValueUtils.CURRENCY_CODE_PATTERN + "?";
+	public static final String CURRENCY_CODE_PATTERN = CcrtoPropertyCurrencyUtils.CURRENCY_CODE_PATTERN + "?";
 
 	/** prosta liczba integer */
 	private final Pattern intgerPattern;
@@ -59,16 +58,17 @@ public class NumberValueAnalyser {
 	 * Analizowanie wartości 'String' pod kątem czy czasem nie jest on wartością
 	 * liczbową. Wykrywane typy:
 	 * <ul>
-	 * <li>AttributeType.BOOLEAN - strings with value {@code true} or
-	 * {@code false}</li>
-	 * <li>AttributeType.NUMBER - Numbers of undefined length with or without
-	 * decimals (1234.1234)</li>
-	 * <li>AttributeType.INTEGER - Integers of undefined length</li>
-	 * <li>AttributeType.CURRENCY - Numbers of undefined length with or without
-	 * decimals with ISO 4217 currency code, or formated numbers with thousand
+	 * <li>FieldType.BOOLEAN - strings with value {@code true} or {@code false}</li>
+	 * <li>FieldType.NUMBER - Numbers of undefined length with or without decimals
+	 * (1234.1234)</li>
+	 * <li>FieldType.INTEGER - Integers of undefined length</li>
+	 * <li>FieldType.CURRENCY - Numbers of undefined length with or without decimals
+	 * with ISO 4217 currency code, or formated numbers with thousand
 	 * separators</li>
 	 * </ul>
 	 * 
+	 * @param systemName
+	 *            nazwa systemu
 	 * @param locale
 	 *            locale użytkownika
 	 * @param source
@@ -76,15 +76,15 @@ public class NumberValueAnalyser {
 	 * @return wynik analizy lub {@code null} gdy nie zostanie spełniona żadna z
 	 *         reguł
 	 */
-	public static AnalysisResult analyse(Locale locale, String source) {
+	public static AnalysisResult analyse(String systemName, Locale locale, String source) {
 
 		/* 1. Analiza czy jest to Boolean */
 		if ("true".equals(source) || "false".equals(source)) {
-			return new AnalysisResult(AttributeType.BOOLEAN, /* encoded */true);
+			return new AnalysisResult(CcrtoPropertyType.BOOLEAN, /* encoded */true);
 		}
 
 		Pattern p;
-		NumberValueAnalyser na = getAnalyser(locale);
+		NumberValueAnalyser na = getAnalyser(systemName, locale);
 		/* 2. Analiza czy jest to liczba */
 		p = na.numberPattern;
 		if (p.matcher(source).find()) {
@@ -92,9 +92,9 @@ public class NumberValueAnalyser {
 			/* 2.1 Analiza czy jest to liczba całkowita */
 			p = na.intgerPattern;
 			if (p.matcher(source).find()) {
-				return new AnalysisResult(AttributeType.INTEGER, /* encoded */true);
+				return new AnalysisResult(CcrtoPropertyType.INTEGER, /* encoded */true);
 			}
-			return new AnalysisResult(AttributeType.NUMBER,
+			return new AnalysisResult(CcrtoPropertyType.NUMBER,
 					/* encoded */na.decimalSeparator == '.' || source.contains("."));
 		}
 
@@ -102,7 +102,7 @@ public class NumberValueAnalyser {
 		p = na.currencySPattern;
 		if (p.matcher(source).find()) {
 			/* Jest to liczba z kodem waluty */
-			return new AnalysisResult(AttributeType.CURRENCY, /* encoded */na.decimalSeparator == '.');
+			return new AnalysisResult(CcrtoPropertyType.CURRENCY, /* encoded */na.decimalSeparator == '.');
 		}
 
 		/* 4. Analiza czy jest to liczba sformatowana z (lub bez) kodem waluty */
@@ -113,7 +113,7 @@ public class NumberValueAnalyser {
 		p = na.currencyFPattern;
 		if (p.matcher(source).find()) {
 			/* Jest to liczba sformatowana z (lub bez) kodem waluty */
-			return new AnalysisResult(AttributeType.CURRENCY, /* encoded */false);
+			return new AnalysisResult(CcrtoPropertyType.CURRENCY, /* encoded */false);
 		}
 		return null;
 	}
@@ -122,20 +122,20 @@ public class NumberValueAnalyser {
 	 * 
 	 * AnalysisResult
 	 *
-	 * @author Sławomir Cichy &lt;slawomir.cichy@ibpm.pro&gt;
+	 * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
 	 * @version $Revision: 1.1 $
 	 *
 	 */
 	public static class AnalysisResult {
 		/** Zidentyfikowany typ liczbowy */
-		private final AttributeType type;
+		private final CcrtoPropertyType type;
 		/**
 		 * informacja o tym czy liczba jest już w postaci gotowej do zapisu do bazy
 		 * danych.
 		 */
 		private final boolean encoded;
 
-		public AnalysisResult(AttributeType type, boolean encoded) {
+		public AnalysisResult(CcrtoPropertyType type, boolean encoded) {
 			super();
 			this.type = type;
 			this.encoded = encoded;
@@ -144,7 +144,7 @@ public class NumberValueAnalyser {
 		/**
 		 * @return the {@link #type}
 		 */
-		public AttributeType getType() {
+		public CcrtoPropertyType getType() {
 			return type;
 		}
 
@@ -160,15 +160,18 @@ public class NumberValueAnalyser {
 	/**
 	 * Pobranie instancji obiektu wykorzystywanego do analizy.
 	 * 
+	 * @param systemName
+	 *            nazwa systemu
 	 * @param localeIn
 	 *            locale użytkownika
 	 * @return obiekt analizy ze wzorcami liczb.
 	 */
-	public static NumberValueAnalyser getAnalyser(final Locale localeIn) {
+	public static NumberValueAnalyser getAnalyser(String systemName, final Locale localeIn) {
 		NumberValueAnalyser na;
 		Locale locale;
 		if (localeIn == null) {
-			locale = MercuryConfig.getSystemLocale();
+			SystemProperties systemProperties = SystemProperties.getSystemProperties(systemName);
+			locale = systemProperties.getSystemLocale();
 		} else {
 			locale = localeIn;
 		}
@@ -217,7 +220,7 @@ public class NumberValueAnalyser {
 					(int) decimalSeparator));
 		}
 		String gS;
-		if (groupingSeparator == CurrencyValueUtils.UNBREAKABLE_SPACE) {
+		if (groupingSeparator == CcrtoPropertyCurrencyUtils.UNBREAKABLE_SPACE) {
 			/* obsługa “Non-breaking space” - dodaję alternatywę zwykłej spacji */
 			gS = "[" + groupingSeparator + " ]{1}";
 		} else {

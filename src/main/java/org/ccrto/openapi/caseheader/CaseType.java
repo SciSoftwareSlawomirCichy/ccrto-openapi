@@ -6,26 +6,41 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.ccrto.openapi.refs.CaseTypeRef;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @XmlAccessorType(XmlAccessType.NONE)
 public class CaseType implements CaseTypeRef {
 
 	private static final long serialVersionUID = -2148764914238324081L;
 
+	@JsonProperty(required = true)
 	@XmlElement(required = true, nillable = false)
 	private String id;
 
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String href;
 
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String type;
 
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String objectID;
 
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String rootVersionContextID;
 
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String version;
 
@@ -34,6 +49,8 @@ public class CaseType implements CaseTypeRef {
 	 * spraw. Np. Zbieramy sprawy typu "User" i można ustawić, że unikalną wartością
 	 * tych obiektów jest property o nazwie "userName".
 	 */
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String pkPropertyNames;
 

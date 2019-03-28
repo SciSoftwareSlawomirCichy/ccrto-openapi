@@ -7,8 +7,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.ccrto.openapi.caseheader.CaseType;
 import org.ccrto.openapi.system.SystemPropertiesDefaults;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -31,6 +34,7 @@ public class QueryRequestContext implements Serializable {
 	private Integer maxResults = SystemPropertiesDefaults.MAX_QUERY_HITS;
 
 	/** Definicja ewentualnego timeout'u operacji - liczba milisekund */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false, defaultValue = "10000000")
 	@XmlElement(required = false, defaultValue = "10000000")
 	private Integer queryTimeout = SystemPropertiesDefaults.RESPONSE_TIMEOUT;
@@ -57,6 +61,7 @@ public class QueryRequestContext implements Serializable {
 	 * polach podstawowych. Wartość domyślna zdefiniowana w
 	 * {@link MercuryConfigConst#DEFAULT_IGNORE_ALTERNATE_FIELDS}.
 	 */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false, defaultValue = "true")
 	@XmlElement(required = false, defaultValue = "true")
 	private Boolean ignoreAlternateNamesOfFields = true;
@@ -67,6 +72,7 @@ public class QueryRequestContext implements Serializable {
 	 * w {@link MercuryConfigConst#DEFAULT_CACHE_USAGE}. Możliwe wartości o nazwy
 	 * elementów obiektu enum {@link pl.slawas.common.cache.CacheUsage}
 	 */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false, defaultValue = "TO_USE")
 	@XmlElement(required = false, defaultValue = "TO_USE")
 	private String cacheUsage = CacheUsage.TO_USE.name();
@@ -91,6 +97,7 @@ public class QueryRequestContext implements Serializable {
 	 * </li>
 	 * </ul>
 	 */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String defaultSortClause;
@@ -98,9 +105,10 @@ public class QueryRequestContext implements Serializable {
 	/**
 	 * Nazwa typu/widoku w jakim ma zostać zwrócony wynik
 	 */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
 	@XmlElement(required = false)
-	private String returnType;
+	private CaseType returnType;
 
 	/**
 	 * @return the {@link #maxResults}
@@ -195,7 +203,7 @@ public class QueryRequestContext implements Serializable {
 	/**
 	 * @return the {@link #returnType}
 	 */
-	public String getReturnType() {
+	public CaseType getReturnType() {
 		return returnType;
 	}
 
@@ -203,7 +211,7 @@ public class QueryRequestContext implements Serializable {
 	 * @param returnType
 	 *            the {@link #returnType} to set
 	 */
-	public void setReturnType(String returnType) {
+	public void setReturnType(CaseType returnType) {
 		this.returnType = returnType;
 	}
 

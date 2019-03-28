@@ -1,0 +1,63 @@
+{
+	"appName": "Java(TM) SE Runtime Environment",
+	"appVersion": "1.7.0_25-b17",
+	"user": {
+		"id": "slawas",
+		"href": "http://localhost/users/slawas",
+		"name": null
+	},
+	"currentRole": {
+		"id": "SciAdmin",
+		"href": "http://localhost/roles/SciAdmin",
+		"role": null
+	},
+	"userRoles": [
+		{
+			"id": "mrc-user",
+			"href": "http://localhost/roles/mrc-user",
+			"role": null
+		},
+		{
+			"id": "mrc-groupadmin",
+			"href": "http://localhost/roles/mrc-groupadmin",
+			"role": null
+		},
+		{
+			"id": "mrc-admin",
+			"href": "http://localhost/roles/mrc-admin",
+			"role": null
+		}
+	],
+	"trustedData": false,
+	"locale": "pl_PL",
+	"timeZone": "Europe/Belgrade",
+	"formats": {
+		"dateShortFormat": "yyyy-MM-dd",
+		"currencyCode": "PLN"
+	},
+	"decodeRequest": "DATE_AND_LOB",
+	"decodeResult": "DATE_AND_LOB",
+	"sourceOfRequest": {
+		"id": "UNKNOWN",
+		"href": "http://localhost/sources/UNKNOWN",
+		"source": null
+	},
+	"rootVersionContextID": null,
+	"directRequest": false,
+	"maxDepthResult": 3,
+	"queryRequestContext": {
+		"maxResults": 1000,
+		"queryTimeout": 10000000,
+		"lazilyFetchType": false,
+		"ignoreAlternateNamesOfFields": true,
+		"cacheUsage": "TO_USE"
+	},
+	"saveRequestContext": {
+		"modifyComment": "System changes.",
+		"valueIsNullIfFieldNotExisisInRequest": false
+	},
+	"requestProperties": {
+		"httpResponseCacheUsage": "NONE",
+		"ignoreCaseHeaderInResponse": false
+	}
+}

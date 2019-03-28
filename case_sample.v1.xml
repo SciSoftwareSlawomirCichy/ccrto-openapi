@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:variable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns3="http://scisoftware.pl/CCRTO/1.0/Properties" xmlns:ns4="http://scisoftware.pl/CCRTO/1.0/CaseHeader" xmlns:ns5="http://scisoftware.pl/CCRTO/1.0/Context">
+    <ns3:caseHeader>
+        <ns4:createDate type="DateTime">28-03-2019 18:54:43</ns4:createDate>
+    </ns3:caseHeader>
+    <ns3:param1 xsi:type="ns3:ccrtoString" type="String" position="1">test</ns3:param1>
+    <ns3:param2 xsi:type="ns3:ccrtoNameValuePair" position="2">
+        <ns3:name>name</ns3:name>
+        <ns3:value>value</ns3:value>
+    </ns3:param2>
+    <ns3:param3 xsi:type="ns3:ccrtoCase" type="TestCcrtoPropertyCase" position="3">
+        <ns3:caseHeader>
+            <ns4:createDate type="DateTime">28-03-2019 18:54:43</ns4:createDate>
+        </ns3:caseHeader>
+    </ns3:param3>
+    <ns3:param4 xsi:type="ns3:ccrtoList" type="TestCcrtoPropertyCase[]" position="4">
+        <ns3:item>
+            <ns3:caseHeader>
+                <ns4:createDate type="DateTime">28-03-2019 18:54:43</ns4:createDate>
+            </ns3:caseHeader>
+        </ns3:item>
+    </ns3:param4>
+    <ns3:param5 xsi:type="ns3:ccrtoList" type="String[]" position="5">
+        <ns3:item>wartość 1</ns3:item>
+        <ns3:item>wartość 2</ns3:item>
+        <ns3:item>wartość 3</ns3:item>
+        <ns3:item>wartość 4</ns3:item>
+        <ns3:item>wartość 5</ns3:item>
+    </ns3:param5>
+    <ns3:param6 xsi:type="ns3:ccrtoMap" position="6">
+        <ns3:entry>
+            <ns3:key>key1</ns3:key>
+            <ns3:value>value1</ns3:value>
+        </ns3:entry>
+        <ns3:entry>
+            <ns3:key>key2</ns3:key>
+            <ns3:value>value2</ns3:value>
+        </ns3:entry>
+        <ns3:entry>
+            <ns3:key>key3</ns3:key>
+            <ns3:value>value3</ns3:value>
+        </ns3:entry>
+        <ns3:entry>
+            <ns3:key>key4</ns3:key>
+            <ns3:value>value4</ns3:value>
+        </ns3:entry>
+    </ns3:param6>
+    <ns3:param7 xsi:type="ns3:ccrtoList" type="ANY[]" position="7">
+        <ns3:item type="String">wartość 1</ns3:item>
+        <ns3:item type="Boolean">true</ns3:item>
+        <ns3:item type="String">wartość 3</ns3:item>
+        <ns3:item type="String">wartość 4</ns3:item>
+        <ns3:item type="String">wartość 5</ns3:item>
+    </ns3:param7>
+    <ns3:param8 xsi:type="ns3:ccrtoList" type="Integer[]" position="8">
+        <ns3:item>1</ns3:item>
+        <ns3:item>2</ns3:item>
+    </ns3:param8>
+    <ns3:param9 xsi:type="ns3:ccrtoList" type="Double[]" position="9">
+        <ns3:item>1.0</ns3:item>
+        <ns3:item>2.0</ns3:item>
+    </ns3:param9>
+</ns3:variable>

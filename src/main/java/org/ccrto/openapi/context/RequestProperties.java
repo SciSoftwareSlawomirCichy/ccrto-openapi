@@ -3,6 +3,9 @@ package org.ccrto.openapi.context;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class RequestProperties extends HashMap<String, Object> {
 
 	private static final long serialVersionUID = -4398310366203796960L;

@@ -39,6 +39,8 @@ public class DateValueAnalyser {
 	 * Analiza wartości typu "String" pod kątem, czy jest on może reprezentacją daty
 	 * w zadanym formacie.
 	 * 
+	 * @param systemName
+	 *            nazwa systemu
 	 * @param dateFormat
 	 *            format daty
 	 * @param locale
@@ -60,6 +62,8 @@ public class DateValueAnalyser {
 	/**
 	 * Pobranie obiekty analizatora daty dla określonych locale użytkownika.
 	 * 
+	 * @param systemName
+	 *            nazwa systemu
 	 * @param dateFormatPattern
 	 *            format daty
 	 * @param localeIn

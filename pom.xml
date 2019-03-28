@@ -15,8 +15,19 @@
 		<jackson.databind.version>[2.8.11.1,)</jackson.databind.version>
 		<jackson.annotations.version>2.5.0</jackson.annotations.version>
 		<slf4j.version>1.5.2</slf4j.version>
+		<org.eclipse.persistence.moxy.version>2.7.3</org.eclipse.persistence.moxy.version>
+		
+		<!-- The destination file for the code coverage report has to be set to the same value
+         in the parent pom and in each module pom. Then JaCoCo will add up information in
+         the same report, so that, it will give the cross-module code coverage. -->
+		<sonar.jacoco.reportPaths>${local-project-workspace-path}/mercury/target/jacoco-it.exec</sonar.jacoco.reportPaths>
+		<jacoco.outputDirectory>${local-project-workspace-path}/mercury/target/jacoco-ut</jacoco.outputDirectory>
+		<jmxArgLine></jmxArgLine>
+
+		<additionalArgLine>${jmxArgLine} -Djavax.xml.bind.context.factory=org.eclipse.persistence.jaxb.JAXBContextFactory</additionalArgLine>
+
 	</properties>
-	
+
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
@@ -24,7 +35,7 @@
 		</license>
 	</licenses>
 	<url>http://scisoftware.pl/${standard.acronym}/${schema.version}</url>
-	
+
 	<developers>
 		<developer>
 			<id>slawas</id>
@@ -40,7 +51,7 @@
 			<timezone>+1</timezone>
 		</developer>
 	</developers>
-	
+
 	<organization>
 		<name>Sci Software</name>
 		<url>http://scisoftware.pl</url>
@@ -56,6 +67,61 @@
 		</extensions>
 		<plugins>
 			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.3</version>
+				<executions>
+					<!-- pre-unit-test execution helps setting up some maven property, which 
+						will be used later by JaCoCo -->
+					<execution>
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<destFile>${sonar.jacoco.reportPaths}</destFile>
+							<!-- passing property which will contains settings for JaCoCo agent. 
+								If not specified, then "argLine" would be used for "jar" packaging -->
+							<propertyName>surefireArgLine</propertyName>
+						</configuration>
+					</execution>
+					<!-- report phase setup -->
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<!-- output file with report data. -->
+							<dataFile>${sonar.jacoco.reportPaths}</dataFile>
+							<!-- output directory for the reports. -->
+							<outputDirectory>${jacoco.outputDirectory}</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.14.1</version>
+				<executions>
+					<execution>
+						<id>default-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<argLine>${additionalArgLine} ${surefireArgLine}</argLine>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<argLine>${additionalArgLine}</argLine>
+				</configuration>
+			</plugin>
+			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.0.0</version>
 				<configuration>
@@ -67,8 +133,8 @@
 				<version>3.5.1</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -103,7 +169,7 @@
 		</plugins>
 		<resources>
 			<!-- To jest akcja Eclipse!! - START -->
-			<!-- Obsługa wygenerowanych przez exec-maven-plugin kodów zródłowych  -->
+			<!-- Obsługa wygenerowanych przez exec-maven-plugin kodów zródłowych -->
 			<resource>
 				<directory>src/main/java-templates</directory>
 				<filtering>true</filtering>
@@ -123,6 +189,11 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.13</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>pl.slawas.sccommon</groupId>
+			<artifactId>sccommon-utils</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
@@ -152,6 +223,22 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.databind.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.moxy</artifactId>
+			<version>${org.eclipse.persistence.moxy.version}</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.eclipse.persistence</groupId>
+					<artifactId>commonj.sdo</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.json</groupId>
+					<artifactId>javax.json-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 </project>

@@ -6,19 +6,28 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.ccrto.openapi.refs.CaseStoreRef;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @XmlAccessorType(XmlAccessType.NONE)
 public class CaseStore implements CaseStoreRef {
 
 	private static final long serialVersionUID = -1795294062939436053L;
 
+	@JsonProperty(required = true)
 	@XmlElement(required = true, nillable = false)
 	private String id;
 
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String href;
 
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlElement(required = false)
-	private Integer storeCount;
+	private Integer storeCount = 1;
 
 	/**
 	 * @return the {@link #id}

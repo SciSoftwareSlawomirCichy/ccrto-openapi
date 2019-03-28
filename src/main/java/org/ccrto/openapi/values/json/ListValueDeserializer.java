@@ -3,25 +3,20 @@ package org.ccrto.openapi.values.json;
 import java.io.IOException;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.ccrto.openapi.values.CcrtoPropertyList;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
-import pro.ibpm.mercury.attrs.javax.ListValue;
-
 @SuppressWarnings("rawtypes")
-@Component
-public class ListValueDeserializer extends JsonDeserializer<ListValue> {
+public class ListValueDeserializer extends JsonDeserializer<CcrtoPropertyList> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ListValue deserialize(JsonParser p, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException {
+	public CcrtoPropertyList deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
 		List value = p.getCodec().readValue(p, List.class);
-		return new ListValue(value);
+		return new CcrtoPropertyList(value);
 	}
 
 }

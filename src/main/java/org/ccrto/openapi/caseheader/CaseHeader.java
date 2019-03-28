@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 import org.ccrto.openapi.context.UserContext;
 import org.ccrto.openapi.context.UserRoleContext;
 import org.ccrto.openapi.refs.CaseRef;
-import org.ccrto.openapi.values.DateValue;
+import org.ccrto.openapi.values.CcrtoPropertyDate;
 import org.ccrto.openapi.values.json.DateValueDeserializer;
 import org.ccrto.openapi.values.json.DateValueSerializer;
 
@@ -45,12 +45,12 @@ public class CaseHeader implements CaseRef {
 	@XmlElement(required = false)
 	@JsonSerialize(using = DateValueSerializer.class)
 	@JsonDeserialize(using = DateValueDeserializer.class)
-	private DateValue priceExchangeDate;
+	private CcrtoPropertyDate priceExchangeDate;
 
 	@XmlElement(required = false)
 	@JsonSerialize(using = DateValueSerializer.class)
 	@JsonDeserialize(using = DateValueDeserializer.class)
-	private DateValue createDate;
+	private CcrtoPropertyDate createDate;
 
 	/** nazwa użytkownika tworzącego {@link SystemUser#getName() */
 	@XmlElement(required = false)
@@ -62,7 +62,7 @@ public class CaseHeader implements CaseRef {
 	@XmlElement(required = false)
 	@JsonSerialize(using = DateValueSerializer.class)
 	@JsonDeserialize(using = DateValueDeserializer.class)
-	private DateValue lastModifyDate;
+	private CcrtoPropertyDate lastModifyDate;
 
 	/** nazwa użytkownika modyfikującego {@link SystemUser#getName() */
 	@XmlElement(required = false)
@@ -87,7 +87,7 @@ public class CaseHeader implements CaseRef {
 	private Set<CaseProcess> bpmProcesses;
 
 	@XmlElement(required = false)
-	private SubCaseReference subCaseReferenceId;
+	private CaseSubCaseReference subCaseReferenceId;
 
 	@XmlElement(required = false)
 	private Boolean dirty;
@@ -200,7 +200,7 @@ public class CaseHeader implements CaseRef {
 	/**
 	 * @return the {@link #priceExchangeDate}
 	 */
-	public DateValue getPriceExchangeDate() {
+	public CcrtoPropertyDate getPriceExchangeDate() {
 		return priceExchangeDate;
 	}
 
@@ -208,14 +208,14 @@ public class CaseHeader implements CaseRef {
 	 * @param priceExchangeDate
 	 *            the {@link #priceExchangeDate} to set
 	 */
-	public void setPriceExchangeDate(DateValue priceExchangeDate) {
+	public void setPriceExchangeDate(CcrtoPropertyDate priceExchangeDate) {
 		this.priceExchangeDate = priceExchangeDate;
 	}
 
 	/**
 	 * @return the {@link #createDate}
 	 */
-	public DateValue getCreateDate() {
+	public CcrtoPropertyDate getCreateDate() {
 		return createDate;
 	}
 
@@ -223,7 +223,7 @@ public class CaseHeader implements CaseRef {
 	 * @param createDate
 	 *            the {@link #createDate} to set
 	 */
-	public void setCreateDate(DateValue createDate) {
+	public void setCreateDate(CcrtoPropertyDate createDate) {
 		this.createDate = createDate;
 	}
 
@@ -260,7 +260,7 @@ public class CaseHeader implements CaseRef {
 	/**
 	 * @return the {@link #lastModifyDate}
 	 */
-	public DateValue getLastModifyDate() {
+	public CcrtoPropertyDate getLastModifyDate() {
 		return lastModifyDate;
 	}
 
@@ -268,7 +268,7 @@ public class CaseHeader implements CaseRef {
 	 * @param lastModifyDate
 	 *            the {@link #lastModifyDate} to set
 	 */
-	public void setLastModifyDate(DateValue lastModifyDate) {
+	public void setLastModifyDate(CcrtoPropertyDate lastModifyDate) {
 		this.lastModifyDate = lastModifyDate;
 	}
 
@@ -380,7 +380,7 @@ public class CaseHeader implements CaseRef {
 	/**
 	 * @return the {@link #subCaseReferenceId}
 	 */
-	public SubCaseReference getSubCaseReferenceId() {
+	public CaseSubCaseReference getSubCaseReferenceId() {
 		return subCaseReferenceId;
 	}
 
@@ -388,7 +388,7 @@ public class CaseHeader implements CaseRef {
 	 * @param subCaseReferenceId
 	 *            the {@link #subCaseReferenceId} to set
 	 */
-	public void setSubCaseReferenceId(SubCaseReference subCaseReferenceId) {
+	public void setSubCaseReferenceId(CaseSubCaseReference subCaseReferenceId) {
 		this.subCaseReferenceId = subCaseReferenceId;
 	}
 

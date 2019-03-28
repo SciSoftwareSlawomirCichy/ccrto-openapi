@@ -7,6 +7,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.ccrto.openapi.caseheader.CaseType;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -30,14 +34,16 @@ public class SaveRequestContext implements Serializable {
 	private String modifyComment;
 
 	/** Nazwa typu/identyfikator typu pod jakim ma zostać zapisana sprawa */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
 	@XmlElement(required = false)
-	private String saveCaseAsType;
+	private CaseType saveCaseAsType;
 
 	/**
 	 * Czy jeżeli pola nie istnieją w żądaniu zapisu sprawy (nie zostały przesłane
 	 * pola obiektu), to ustawiać je na wartość {@code null} ?
 	 */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false, defaultValue = "false")
 	@XmlElement(required = false, defaultValue = "false")
 	private Boolean valueIsNullIfFieldNotExisisInRequest = false;
@@ -60,7 +66,7 @@ public class SaveRequestContext implements Serializable {
 	/**
 	 * @return the {@link #saveCaseAsType}
 	 */
-	public String getSaveCaseAsType() {
+	public CaseType getSaveCaseAsType() {
 		return saveCaseAsType;
 	}
 
@@ -68,7 +74,7 @@ public class SaveRequestContext implements Serializable {
 	 * @param saveCaseAsType
 	 *            the {@link #saveCaseAsType} to set
 	 */
-	public void setSaveCaseAsType(String saveCaseAsType) {
+	public void setSaveCaseAsType(CaseType saveCaseAsType) {
 		this.saveCaseAsType = saveCaseAsType;
 	}
 

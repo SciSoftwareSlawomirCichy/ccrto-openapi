@@ -1,19 +1,31 @@
 package org.ccrto.openapi.caseheader;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 import org.ccrto.openapi.refs.StatusRef;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@XmlAccessorType(XmlAccessType.NONE)
 public class CaseProcessStatus implements StatusRef {
 
 	private static final long serialVersionUID = 1860049594686457573L;
 
+	@JsonProperty(required = true)
 	@XmlElement(required = true, nillable = false)
 	private String id;
 
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String href;
 
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String status;
 

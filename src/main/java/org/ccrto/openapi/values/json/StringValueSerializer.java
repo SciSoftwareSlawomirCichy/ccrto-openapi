@@ -3,31 +3,27 @@ package org.ccrto.openapi.values.json;
 import java.io.IOException;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Component;
+import org.ccrto.openapi.values.CcrtoPropertyString;
+import org.ccrto.openapi.values.CcrtoPropertyType;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-import pro.ibpm.mercury.attrs.AttributeType;
-import pro.ibpm.mercury.attrs.javax.StringValue;
-
-@Component
-public class StringValueSerializer extends JsonSerializer<StringValue> {
+public class StringValueSerializer extends JsonSerializer<CcrtoPropertyString> {
 
 	@Override
-	public void serialize(StringValue value, JsonGenerator gen, SerializerProvider serializers)
-			throws IOException, JsonProcessingException {
+	public void serialize(CcrtoPropertyString value, JsonGenerator gen, SerializerProvider serializers)
+			throws IOException {
 
-		if (StringUtils.isBlank(value.getValue())) {
+		if (StringUtils.isBlank(value.getObjectValue())) {
 			gen.writeString((String) null);
 		}
-		AttributeType attrType = AttributeType.getType(value.getType());
-		if (attrType.isNumber()) {
-			gen.writeNumber(value.getValue());
+		CcrtoPropertyType fieldType = CcrtoPropertyType.getType(value.getType());
+		if (fieldType.isNumber()) {
+			gen.writeNumber(value.getObjectValue());
 		} else {
-			gen.writeString(value.getValue());
+			gen.writeString(value.getObjectValue());
 		}
 
 	}

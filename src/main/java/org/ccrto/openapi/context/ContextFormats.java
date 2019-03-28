@@ -7,7 +7,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * 
@@ -24,21 +26,25 @@ public class ContextFormats implements Serializable {
 	private static final long serialVersionUID = 5670246589883177813L;
 
 	/** format daty krótkiej np. 'yyyy-MM-dd'. */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String dateShortFormat;
 
 	/** format daty długiej np. 'dd-MM-yyyy HH:mm:ss' */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String dateLongFormat;
 
 	/** format liczby zmiennoprzecinkowej */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String numberFormat;
 
 	/** format liczby zmiennoprzecinkowej reprezentującej wartość/cenę */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String currencyFormat;
@@ -48,11 +54,13 @@ public class ContextFormats implements Serializable {
 	 * 
 	 * https://en.wikipedia.org/wiki/ISO_4217#Active_codes
 	 */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String currencyCode;
 
 	/** format liczby całkowitej */
+	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String integerFormat;

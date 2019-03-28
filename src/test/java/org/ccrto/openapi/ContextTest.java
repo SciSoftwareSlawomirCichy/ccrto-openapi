@@ -1,6 +1,5 @@
 package org.ccrto.openapi;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,9 +8,7 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -21,6 +18,7 @@ import org.ccrto.openapi.context.ContextFormats;
 import org.ccrto.openapi.context.ContextHelper;
 import org.ccrto.openapi.context.UserRoleContext;
 import org.ccrto.openapi.system.SystemProperties;
+import org.ccrto.openapi.test.utils.XMLUtils;
 import org.xml.sax.SAXException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -91,24 +89,12 @@ public class ContextTest extends TestCase {
 		context.addRequestPropertyValue("httpResponseCacheUsage", CacheUsage.NONE.name());
 
 		System.out.println(objectMapper.valueToTree(context));
-		transformation2XML(context, "context_sample.v1.xml");
+		XMLUtils.transformation2XML(Context.class, context, "context_sample.v1.xml");
 		assertTrue(true);
 	}
 
 	private UserRoleContext createUserRole(SystemProperties systemProperties, String roleId) {
 		return ContextHelper.createRoleReference(roleId, systemProperties.getRoleHref(roleId), /* role */ null);
-	}
-
-	public static void transformation2XML(Context context, String fileName) throws FileNotFoundException, JAXBException,
-			ParserConfigurationException, SAXException, IOException, TransformerException {
-
-		File file = new File(fileName);
-		JAXBContext jaxbContext = JAXBContext.newInstance(Context.class);
-		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		jaxbMarshaller.marshal(context, file);
-		jaxbMarshaller.marshal(context, System.out);
-
 	}
 
 	/**

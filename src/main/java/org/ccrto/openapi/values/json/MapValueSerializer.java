@@ -2,21 +2,16 @@ package org.ccrto.openapi.values.json;
 
 import java.io.IOException;
 
-import org.springframework.stereotype.Component;
+import org.ccrto.openapi.values.CcrtoPropertyMap;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-import pro.ibpm.mercury.attrs.javax.MapValue;
-
-@Component
-public class MapValueSerializer extends JsonSerializer<MapValue> {
+public class MapValueSerializer extends JsonSerializer<CcrtoPropertyMap> {
 
 	@Override
-	public void serialize(MapValue list, JsonGenerator gen, SerializerProvider serializers)
-			throws IOException, JsonProcessingException {
+	public void serialize(CcrtoPropertyMap list, JsonGenerator gen, SerializerProvider serializers) throws IOException {
 		gen.writeObject(list.getValue());
 	}
 

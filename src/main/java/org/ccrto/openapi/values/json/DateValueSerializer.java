@@ -3,23 +3,24 @@ package org.ccrto.openapi.values.json;
 import java.io.IOException;
 
 import org.apache.commons.lang.StringUtils;
-import org.ccrto.openapi.values.DateValue;
+import org.ccrto.openapi.values.CcrtoPropertyDate;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-public class DateValueSerializer extends JsonSerializer<DateValue> {
+public class DateValueSerializer extends JsonSerializer<CcrtoPropertyDate> {
 
 	@Override
-	public void serialize(DateValue value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-		if (StringUtils.isBlank(value.getString())) {
+	public void serialize(CcrtoPropertyDate value, JsonGenerator gen, SerializerProvider serializers)
+			throws IOException {
+		if (StringUtils.isBlank(value.getObjectValue())) {
 			gen.writeString((String) null);
 		}
-		if (value.isEncoded()) {
-			gen.writeNumber(Long.parseLong(value.getString()));
+		if (value.getIsEncoded() != null && value.getIsEncoded()) {
+			gen.writeNumber(Long.parseLong(value.getObjectValue()));
 		} else {
-			gen.writeString(value.getString());
+			gen.writeString(value.getObjectValue());
 		}
 	}
 
