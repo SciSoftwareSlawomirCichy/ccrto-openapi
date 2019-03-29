@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:responseSample xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://scisoftware.pl/CCRTO/1.0/Messaging" xmlns:ns1="http://scisoftware.pl/CCRTO/1.0/Core">
+   <ns0:data>
+      <ns1:caseHeader>
+         <ns1:createDate type="DateTime">29-03-2019 15:32:48</ns1:createDate>
+      </ns1:caseHeader>
+      <param1 position="1">test</param1>
+      <param2 position="2" type="NameValuePair">
+         <ns1:name>name</ns1:name>
+         <ns1:value>value</ns1:value>
+      </param2>
+      <param3 type="TestCcrtoPropertyCase" position="3">
+         <ns1:caseHeader>
+            <ns1:createDate type="DateTime">29-03-2019 15:32:48</ns1:createDate>
+         </ns1:caseHeader>
+      </param3>
+      <param4 type="TestCcrtoPropertyCase[]" position="4">
+         <ns1:item type="Case">
+            <ns1:caseHeader>
+               <ns1:createDate type="DateTime">29-03-2019 15:32:48</ns1:createDate>
+            </ns1:caseHeader>
+         </ns1:item>
+      </param4>
+      <param5 type="String[]" position="5">
+         <ns1:item type="String">wartość 1</ns1:item>
+         <ns1:item type="String">wartość 2</ns1:item>
+         <ns1:item type="String">wartość 3</ns1:item>
+         <ns1:item type="String">wartość 4</ns1:item>
+         <ns1:item type="String">wartość 5</ns1:item>
+      </param5>
+      <param6 position="6" type="Map">
+         <ns1:entry>
+            <ns1:key>key1</ns1:key>
+            <ns1:value>value1</ns1:value>
+         </ns1:entry>
+         <ns1:entry>
+            <ns1:key>key2</ns1:key>
+            <ns1:value>value2</ns1:value>
+         </ns1:entry>
+         <ns1:entry>
+            <ns1:key>key3</ns1:key>
+            <ns1:value>value3</ns1:value>
+         </ns1:entry>
+         <ns1:entry>
+            <ns1:key>key4</ns1:key>
+            <ns1:value>value4</ns1:value>
+         </ns1:entry>
+      </param6>
+      <param7 type="ANY[]" position="7">
+         <ns1:item type="String">wartość 1</ns1:item>
+         <ns1:item type="Boolean">true</ns1:item>
+         <ns1:item type="String">wartość 3</ns1:item>
+         <ns1:item type="String">wartość 4</ns1:item>
+         <ns1:item type="String">wartość 5</ns1:item>
+      </param7>
+      <param8 type="Integer[]" position="8">
+         <ns1:item>1</ns1:item>
+         <ns1:item>2</ns1:item>
+      </param8>
+      <param9 type="Double[]" position="9">
+         <ns1:item>1.0</ns1:item>
+         <ns1:item>2.0</ns1:item>
+      </param9>
+      <param10 type="Text" position="10">test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, text, test long text, &lt;a>text&lt;/a>, test long text, test long text, test long text, test long text, text, test long text, test&amp;nbps;long text, test long text, test long text, test long text, test long text, text, test long text, test long text, test long text, test long text, test long text, test long text, </param10>
+   </ns0:data>
+</ns0:responseSample>

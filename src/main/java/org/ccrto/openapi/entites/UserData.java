@@ -1,6 +1,6 @@
 package org.ccrto.openapi.entites;
 
-import org.ccrto.openapi.refs.InvolvementIdentificationRef;
+import org.ccrto.openapi.core.refs.InvolvementIdentificationRef;
 
 /**
  * 

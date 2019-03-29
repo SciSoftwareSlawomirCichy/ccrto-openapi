@@ -1,63 +1,66 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns3:variable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns3="http://scisoftware.pl/CCRTO/1.0/Properties" xmlns:ns4="http://scisoftware.pl/CCRTO/1.0/CaseHeader" xmlns:ns5="http://scisoftware.pl/CCRTO/1.0/Context">
-    <ns3:caseHeader>
-        <ns4:createDate type="DateTime">28-03-2019 18:54:43</ns4:createDate>
-    </ns3:caseHeader>
-    <ns3:param1 xsi:type="ns3:ccrtoString" type="String" position="1">test</ns3:param1>
-    <ns3:param2 xsi:type="ns3:ccrtoNameValuePair" position="2">
-        <ns3:name>name</ns3:name>
-        <ns3:value>value</ns3:value>
-    </ns3:param2>
-    <ns3:param3 xsi:type="ns3:ccrtoCase" type="TestCcrtoPropertyCase" position="3">
-        <ns3:caseHeader>
-            <ns4:createDate type="DateTime">28-03-2019 18:54:43</ns4:createDate>
-        </ns3:caseHeader>
-    </ns3:param3>
-    <ns3:param4 xsi:type="ns3:ccrtoList" type="TestCcrtoPropertyCase[]" position="4">
-        <ns3:item>
-            <ns3:caseHeader>
-                <ns4:createDate type="DateTime">28-03-2019 18:54:43</ns4:createDate>
-            </ns3:caseHeader>
-        </ns3:item>
-    </ns3:param4>
-    <ns3:param5 xsi:type="ns3:ccrtoList" type="String[]" position="5">
-        <ns3:item>wartość 1</ns3:item>
-        <ns3:item>wartość 2</ns3:item>
-        <ns3:item>wartość 3</ns3:item>
-        <ns3:item>wartość 4</ns3:item>
-        <ns3:item>wartość 5</ns3:item>
-    </ns3:param5>
-    <ns3:param6 xsi:type="ns3:ccrtoMap" position="6">
-        <ns3:entry>
-            <ns3:key>key1</ns3:key>
-            <ns3:value>value1</ns3:value>
-        </ns3:entry>
-        <ns3:entry>
-            <ns3:key>key2</ns3:key>
-            <ns3:value>value2</ns3:value>
-        </ns3:entry>
-        <ns3:entry>
-            <ns3:key>key3</ns3:key>
-            <ns3:value>value3</ns3:value>
-        </ns3:entry>
-        <ns3:entry>
-            <ns3:key>key4</ns3:key>
-            <ns3:value>value4</ns3:value>
-        </ns3:entry>
-    </ns3:param6>
-    <ns3:param7 xsi:type="ns3:ccrtoList" type="ANY[]" position="7">
-        <ns3:item type="String">wartość 1</ns3:item>
-        <ns3:item type="Boolean">true</ns3:item>
-        <ns3:item type="String">wartość 3</ns3:item>
-        <ns3:item type="String">wartość 4</ns3:item>
-        <ns3:item type="String">wartość 5</ns3:item>
-    </ns3:param7>
-    <ns3:param8 xsi:type="ns3:ccrtoList" type="Integer[]" position="8">
-        <ns3:item>1</ns3:item>
-        <ns3:item>2</ns3:item>
-    </ns3:param8>
-    <ns3:param9 xsi:type="ns3:ccrtoList" type="Double[]" position="9">
-        <ns3:item>1.0</ns3:item>
-        <ns3:item>2.0</ns3:item>
-    </ns3:param9>
-</ns3:variable>
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:responseSample xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://scisoftware.pl/CCRTO/1.0/Messaging" xmlns:ns1="http://scisoftware.pl/CCRTO/1.0/Core">
+   <ns0:data>
+      <ns1:caseHeader>
+         <ns1:createDate>29-03-2019 18:47:42</ns1:createDate>
+      </ns1:caseHeader>
+      <ns1:param1 position="1" xsi:type="ns1:String">test</ns1:param1>
+      <ns1:param2 position="2" xsi:type="ns1:NameValuePair">
+         <ns1:name>name</ns1:name>
+         <ns1:value>value</ns1:value>
+      </ns1:param2>
+      <ns1:param3 type="TestCcrtoPropertyCase" position="3" xsi:type="ns1:Case">
+         <ns1:caseHeader>
+            <ns1:createDate>29-03-2019 18:47:42</ns1:createDate>
+         </ns1:caseHeader>
+      </ns1:param3>
+      <ns1:param4 type="TestCcrtoPropertyCase[]" position="4" xsi:type="ns1:List">
+         <ns1:item xsi:type="ns1:Case">
+            <ns1:caseHeader>
+               <ns1:createDate>29-03-2019 18:47:42</ns1:createDate>
+            </ns1:caseHeader>
+         </ns1:item>
+      </ns1:param4>
+      <ns1:param5 type="String[]" position="5" xsi:type="ns1:List">
+         <ns1:item xsi:type="ns1:String">wartość 1</ns1:item>
+         <ns1:item xsi:type="ns1:String">wartość 2</ns1:item>
+         <ns1:item xsi:type="ns1:String">wartość 3</ns1:item>
+         <ns1:item xsi:type="ns1:String">wartość 4</ns1:item>
+         <ns1:item xsi:type="ns1:String">wartość 5</ns1:item>
+      </ns1:param5>
+      <ns1:param6 position="6" xsi:type="ns1:Map">
+         <ns1:entry>
+            <ns1:key>key1</ns1:key>
+            <ns1:value>value1</ns1:value>
+         </ns1:entry>
+         <ns1:entry>
+            <ns1:key>key2</ns1:key>
+            <ns1:value>value2</ns1:value>
+         </ns1:entry>
+         <ns1:entry>
+            <ns1:key>key3</ns1:key>
+            <ns1:value>value3</ns1:value>
+         </ns1:entry>
+         <ns1:entry>
+            <ns1:key>key4</ns1:key>
+            <ns1:value>value4</ns1:value>
+         </ns1:entry>
+      </ns1:param6>
+      <ns1:param7 type="ANY[]" position="7" xsi:type="ns1:List">
+         <ns1:item xsi:type="ns1:String">wartość 1</ns1:item>
+         <ns1:item xsi:type="ns1:Boolean">true</ns1:item>
+         <ns1:item xsi:type="ns1:String">wartość 3</ns1:item>
+         <ns1:item xsi:type="ns1:String">wartość 4</ns1:item>
+         <ns1:item xsi:type="ns1:String">wartość 5</ns1:item>
+      </ns1:param7>
+      <ns1:param8 type="Integer[]" position="8" xsi:type="ns1:List">
+         <ns1:item xsi:type="ns1:Number">1</ns1:item>
+         <ns1:item xsi:type="ns1:Number">2</ns1:item>
+      </ns1:param8>
+      <ns1:param9 type="Double[]" position="9" xsi:type="ns1:List">
+         <ns1:item xsi:type="ns1:Number">1.0</ns1:item>
+         <ns1:item xsi:type="ns1:Number">2.0</ns1:item>
+      </ns1:param9>
+      <ns1:param10 type="Text" position="10" xsi:type="ns1:String">test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, text, test long text, &lt;a>text&lt;/a>, test long text, test long text, test long text, test long text, text, test long text, test&amp;nbps;long text, test long text, test long text, test long text, test long text, text, test long text, test long text, test long text, test long text, test long text, test long text, </ns1:param10>
+   </ns0:data>
+</ns0:responseSample>
