@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import org.ccrto.openapi.core.Context;
 
-public interface IValueNumber extends IValueObject {
+public interface IValueNumber extends IValueObject, IValueWithEncodedFlag {
 
 	Double toDouble(String systemName);
 

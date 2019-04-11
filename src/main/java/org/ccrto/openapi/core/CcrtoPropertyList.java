@@ -12,12 +12,14 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang.StringUtils;
-import org.ccrto.openapi.core.adapters.CcrtoPropertyAdapter;
 import org.ccrto.openapi.core.internal.IValueList;
 import org.ccrto.openapi.core.utils.CcrtoPropertyTypeUtils;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * 
@@ -35,10 +37,11 @@ public class CcrtoPropertyList extends CcrtoProperty implements IValueList {
 
 	private static final long serialVersionUID = 4884910109099685130L;
 
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
 	@XmlAttribute(name = "status", required = false)
 	private CcrtoPropertyStatus status;
 
-	@XmlJavaTypeAdapter(CcrtoPropertyAdapter.class)
 	@XmlElement(name = CcrtoPropertyTypeUtils.DEFAULT_COLLECTION_ITEM_NAME, type = CcrtoProperty.class)
 	private final List<CcrtoProperty> value;
 

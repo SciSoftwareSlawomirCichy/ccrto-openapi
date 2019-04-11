@@ -30,6 +30,10 @@ public class CcrtoProperty implements Serializable {
 	@JsonIgnore
 	protected String type;
 
+	@XmlAttribute(name = "position", required = false)
+	@JsonIgnore
+	protected Integer position;
+
 	@JsonIgnore
 	@XmlTransient
 	protected String propertyName;
@@ -111,7 +115,21 @@ public class CcrtoProperty implements Serializable {
 	 */
 	public void setPropertyValue(String value) {
 		this.propertyValue = value;
+	}
 
+	/**
+	 * @return the {@link #position}
+	 */
+	public Integer getPosition() {
+		return position;
+	}
+
+	/**
+	 * @param position
+	 *            the {@link #position} to set
+	 */
+	public void setPosition(Integer position) {
+		this.position = position;
 	}
 
 	final void setTypeAsNull() {
@@ -123,13 +141,22 @@ public class CcrtoProperty implements Serializable {
 		this.type = this.origType;
 	}
 
+	@Override
+	public String toString() {
+		return this.propertyValue;
+	}
+
 	/* Overridden (non-Javadoc) */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
-		result = prime * result + ((this.propertyValue == null) ? 0 : this.propertyValue.hashCode());
+		result = prime * result + ((origType == null) ? 0 : origType.hashCode());
+		result = prime * result + ((otherAttributes == null) ? 0 : otherAttributes.hashCode());
+		result = prime * result + ((position == null) ? 0 : position.hashCode());
+		result = prime * result + ((propertyName == null) ? 0 : propertyName.hashCode());
+		result = prime * result + ((propertyValue == null) ? 0 : propertyValue.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
 
@@ -146,26 +173,49 @@ public class CcrtoProperty implements Serializable {
 			return false;
 		}
 		CcrtoProperty other = (CcrtoProperty) obj;
-		if (getType() == null) {
-			if (other.getType() != null) {
+		if (origType == null) {
+			if (other.origType != null) {
 				return false;
 			}
-		} else if (!getType().equals(other.getType())) {
+		} else if (!origType.equals(other.origType)) {
 			return false;
 		}
-		if (this.propertyValue == null) {
+		if (otherAttributes == null) {
+			if (other.otherAttributes != null) {
+				return false;
+			}
+		} else if (!otherAttributes.equals(other.otherAttributes)) {
+			return false;
+		}
+		if (position == null) {
+			if (other.position != null) {
+				return false;
+			}
+		} else if (!position.equals(other.position)) {
+			return false;
+		}
+		if (propertyName == null) {
+			if (other.propertyName != null) {
+				return false;
+			}
+		} else if (!propertyName.equals(other.propertyName)) {
+			return false;
+		}
+		if (propertyValue == null) {
 			if (other.propertyValue != null) {
 				return false;
 			}
 		} else if (!propertyValue.equals(other.propertyValue)) {
 			return false;
 		}
+		if (type == null) {
+			if (other.type != null) {
+				return false;
+			}
+		} else if (!type.equals(other.type)) {
+			return false;
+		}
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return this.propertyValue;
 	}
 
 }

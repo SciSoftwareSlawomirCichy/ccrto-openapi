@@ -2,7 +2,6 @@ package org.ccrto.openapi.test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
@@ -17,8 +16,13 @@ import org.ccrto.openapi.core.CcrtoPropertyList;
 import org.ccrto.openapi.core.CcrtoPropertyMap;
 import org.ccrto.openapi.core.CcrtoPropertyNameValuePair;
 import org.ccrto.openapi.core.CcrtoPropertyNumber;
+import org.ccrto.openapi.core.CcrtoPropertyStatus;
 import org.ccrto.openapi.core.CcrtoPropertyString;
-import org.ccrto.openapi.messaging.ResponseSample;
+import org.ccrto.openapi.core.Context;
+import org.ccrto.openapi.core.exceptions.CcrtoException;
+import org.ccrto.openapi.core.system.SystemProperties;
+import org.ccrto.openapi.messaging.SaveRequest;
+import org.ccrto.openapi.test.utils.SystemOutLogger;
 import org.ccrto.openapi.test.utils.XMLUtils;
 import org.xml.sax.SAXException;
 
@@ -26,6 +30,17 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+/**
+ * 
+ * CcrtoPropertCaseTest
+ * https://stackoverflow.com/questions/8980204/configuring-cxf-with-spring-to-use-moxy-for-xml-marshalling-unmarshalling
+ * https://stackoverflow.com/questions/12684103/xmladapter-not-being-used-in-cxf
+ * https://www.eclipse.org/eclipselink/documentation/2.4/solutions/jpatoxml006.htm
+ *
+ * @author Sławomir Cichy &lt;slawas@scisoftware.pl&gt;
+ * @version $Revision: 1.1 $
+ *
+ */
 public class CcrtoPropertCaseTest extends TestCase {
 
 	/**
@@ -46,18 +61,27 @@ public class CcrtoPropertCaseTest extends TestCase {
 	}
 
 	public void testCase() throws FileNotFoundException, JAXBException, ParserConfigurationException, SAXException,
-			IOException, TransformerException {
+			IOException, TransformerException, CcrtoException {
+		final String METHOD = "testCase";
 
 		String fileName;
+		SystemProperties systemProperties = SystemProperties.getSystemProperties();
+		Context context = systemProperties.createDefaultContext();
 
 		CcrtoPropertyCase propertyCase = new CcrtoPropertyCase();
+		propertyCase.setStatus(CcrtoPropertyStatus.FRAGMENT);
 		CaseHeader caseHeader = new CaseHeader();
 		caseHeader.setCreateDate(CcrtoPropertyDate.getInstance("test"));
 		propertyCase.setCaseHeader(caseHeader);
 
 		CcrtoPropertyString param1 = CcrtoPropertyString.getInstance("test");
 		param1.setPropertyName("param1");
-		param1.getOtherAttributes().put(QName.valueOf("position"), "1");
+		param1.getOtherAttributes().put(QName.valueOf("position"), "1.1");
+		propertyCase.add(param1);
+
+		param1 = CcrtoPropertyString.getInstance("test_2");
+		param1.setPropertyName("param1");
+		param1.getOtherAttributes().put(QName.valueOf("position"), "1.2");
 		propertyCase.add(param1);
 
 		CcrtoPropertyNameValuePair nvp = new CcrtoPropertyNameValuePair();
@@ -68,6 +92,7 @@ public class CcrtoPropertCaseTest extends TestCase {
 		propertyCase.add(nvp);
 
 		CcrtoPropertyCase propertySubCase = new CcrtoPropertyCase();
+		propertySubCase.setStatus(CcrtoPropertyStatus.FRAGMENT);
 		propertySubCase.setType("TestCcrtoPropertyCase");
 		propertySubCase.setPropertyName("param3");
 		propertySubCase.getOtherAttributes().put(QName.valueOf("position"), "3");
@@ -75,6 +100,7 @@ public class CcrtoPropertCaseTest extends TestCase {
 		propertyCase.add(propertySubCase);
 
 		propertySubCase = new CcrtoPropertyCase();
+		propertySubCase.setStatus(CcrtoPropertyStatus.ALL);
 		propertySubCase.setType("TestCcrtoPropertyCase");
 		propertySubCase.setCaseHeader(caseHeader);
 
@@ -137,31 +163,27 @@ public class CcrtoPropertCaseTest extends TestCase {
 		text.setPropertyName("param10");
 		text.getOtherAttributes().put(QName.valueOf("position"), "10");
 		propertyCase.add(text);
+		CcrtoPropertyString newParam = CcrtoPropertyString.getInstance("newParam");
+		newParam.setPropertyName("newParam");
+		newParam.getOtherAttributes().put(QName.valueOf("position"), "11");
+		propertyCase.add(newParam);
+		SystemOutLogger.log(METHOD, "---->CaseProperties: %s", propertyCase.getCaseProperties().size());
 
-		ResponseSample response = new ResponseSample();
-		response.data = propertyCase;
-
+		SaveRequest request = new SaveRequest();
+		request.setContext(context);
+		request.addData(propertyCase);
 		fileName = "case_sample.v1.xml";
-		Class<?> clazz = ResponseSample.class;
-		XMLUtils.transformation2XML(clazz, response, fileName);
-
-		//fileName = "case_sample.v2.xml";
-		response = (ResponseSample) XMLUtils.transformation2Object(clazz, fileName);
-		clazz = CcrtoPropertyCase.class;
-		propertyCase = response.data;
-		XMLUtils.transformation2XML(clazz, propertyCase, /* fileName */ null);
+		Class<?> clazz = SaveRequest.class;
+		XMLUtils.transformation2XML(clazz, request, fileName);
 
 		fileName = "case_sample.v3.xml";
-		propertyCase = (CcrtoPropertyCase) XMLUtils.transformation2Object(clazz, fileName);
+		request = (SaveRequest) XMLUtils.transformation2Object(context, clazz, fileName);
+		propertyCase = request.getData().get(0);
 
-		
-		System.out.println(String.format("---->properties: %s", propertyCase.getProperties().size()));
-//		List<Object> any = ((CcrtoPropertyString) propertyCase.getCaseProperties().get(1)).getAny();
-//		System.out.println(String.format("---->any: %s", any.size()));
-//		System.out.println(
-//				String.format("---->header: %s", propertyCase.getCaseHeader().getCreateDate().getPropertyValue()));
-//		System.out.println(String.format("---->param[10]: %s", propertyCase.getCaseProperties().get(9)));
+		SystemOutLogger.log(METHOD, "---->AnyProperties: %s", propertyCase.getAnyProperties().size());
+		SystemOutLogger.log(METHOD, "---->CaseProperties: %s", propertyCase.getCaseProperties().size());
 
+		clazz = CcrtoPropertyCase.class;
 		XMLUtils.transformation2XML(clazz, propertyCase, /* fileName */ null);
 		assertTrue(true);
 

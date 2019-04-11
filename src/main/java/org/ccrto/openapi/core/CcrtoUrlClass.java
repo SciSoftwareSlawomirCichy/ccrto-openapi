@@ -59,4 +59,26 @@ public enum CcrtoUrlClass {
 		return name;
 	}
 
+	public static CcrtoUrlClass valueOfMimeType(String mimeType) {
+		if (mimeType.startsWith("image")) {
+			return CcrtoUrlClass.IMAGE;
+		}
+		if (mimeType.equals("application/pdf")) {
+			return CcrtoUrlClass.PDF;
+		}
+		if (mimeType.contains("msword")) {
+			return CcrtoUrlClass.DOCUMENT;
+		}
+		if (mimeType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
+			return CcrtoUrlClass.DOCUMENT;
+		}
+		if (mimeType.contains("ms-excel")) {
+			return CcrtoUrlClass.EXCEL;
+		}
+		if (mimeType.equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
+			return CcrtoUrlClass.EXCEL;
+		}
+		return CcrtoUrlClass.LINK;
+	}
+
 }

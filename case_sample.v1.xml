@@ -1,66 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ns0:responseSample xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://scisoftware.pl/CCRTO/1.0/Messaging" xmlns:ns1="http://scisoftware.pl/CCRTO/1.0/Core">
-   <ns0:data>
-      <ns1:caseHeader>
-         <ns1:createDate>29-03-2019 18:47:42</ns1:createDate>
-      </ns1:caseHeader>
-      <ns1:param1 position="1" xsi:type="ns1:String">test</ns1:param1>
-      <ns1:param2 position="2" xsi:type="ns1:NameValuePair">
-         <ns1:name>name</ns1:name>
-         <ns1:value>value</ns1:value>
-      </ns1:param2>
-      <ns1:param3 type="TestCcrtoPropertyCase" position="3" xsi:type="ns1:Case">
-         <ns1:caseHeader>
-            <ns1:createDate>29-03-2019 18:47:42</ns1:createDate>
-         </ns1:caseHeader>
-      </ns1:param3>
-      <ns1:param4 type="TestCcrtoPropertyCase[]" position="4" xsi:type="ns1:List">
-         <ns1:item xsi:type="ns1:Case">
-            <ns1:caseHeader>
-               <ns1:createDate>29-03-2019 18:47:42</ns1:createDate>
-            </ns1:caseHeader>
-         </ns1:item>
-      </ns1:param4>
-      <ns1:param5 type="String[]" position="5" xsi:type="ns1:List">
-         <ns1:item xsi:type="ns1:String">wartość 1</ns1:item>
-         <ns1:item xsi:type="ns1:String">wartość 2</ns1:item>
-         <ns1:item xsi:type="ns1:String">wartość 3</ns1:item>
-         <ns1:item xsi:type="ns1:String">wartość 4</ns1:item>
-         <ns1:item xsi:type="ns1:String">wartość 5</ns1:item>
-      </ns1:param5>
-      <ns1:param6 position="6" xsi:type="ns1:Map">
-         <ns1:entry>
-            <ns1:key>key1</ns1:key>
-            <ns1:value>value1</ns1:value>
-         </ns1:entry>
-         <ns1:entry>
-            <ns1:key>key2</ns1:key>
-            <ns1:value>value2</ns1:value>
-         </ns1:entry>
-         <ns1:entry>
-            <ns1:key>key3</ns1:key>
-            <ns1:value>value3</ns1:value>
-         </ns1:entry>
-         <ns1:entry>
-            <ns1:key>key4</ns1:key>
-            <ns1:value>value4</ns1:value>
-         </ns1:entry>
-      </ns1:param6>
-      <ns1:param7 type="ANY[]" position="7" xsi:type="ns1:List">
-         <ns1:item xsi:type="ns1:String">wartość 1</ns1:item>
-         <ns1:item xsi:type="ns1:Boolean">true</ns1:item>
-         <ns1:item xsi:type="ns1:String">wartość 3</ns1:item>
-         <ns1:item xsi:type="ns1:String">wartość 4</ns1:item>
-         <ns1:item xsi:type="ns1:String">wartość 5</ns1:item>
-      </ns1:param7>
-      <ns1:param8 type="Integer[]" position="8" xsi:type="ns1:List">
-         <ns1:item xsi:type="ns1:Number">1</ns1:item>
-         <ns1:item xsi:type="ns1:Number">2</ns1:item>
-      </ns1:param8>
-      <ns1:param9 type="Double[]" position="9" xsi:type="ns1:List">
-         <ns1:item xsi:type="ns1:Number">1.0</ns1:item>
-         <ns1:item xsi:type="ns1:Number">2.0</ns1:item>
-      </ns1:param9>
-      <ns1:param10 type="Text" position="10" xsi:type="ns1:String">test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, text, test long text, &lt;a>text&lt;/a>, test long text, test long text, test long text, test long text, text, test long text, test&amp;nbps;long text, test long text, test long text, test long text, test long text, text, test long text, test long text, test long text, test long text, test long text, test long text, </ns1:param10>
-   </ns0:data>
-</ns0:responseSample>
+<ns1:saveRequest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://scisoftware.pl/CCRTO/1.0/Messaging" xmlns:ns0="http://scisoftware.pl/CCRTO/1.0/Core">
+   <ns1:context>
+      <ns0:appName>Java(TM) SE Runtime Environment</ns0:appName>
+      <ns0:appVersion>1.8.0_112-b15</ns0:appVersion>
+      <ns0:user>
+         <ns0:href>http://localhost/users/slawas</ns0:href>
+         <ns0:id>slawas</ns0:id>
+      </ns0:user>
+      <ns0:currentRole>
+         <ns0:href>http://localhost/roles/ANONYMOUS</ns0:href>
+         <ns0:id>ANONYMOUS</ns0:id>
+      </ns0:currentRole>
+      <ns0:userRoles xsi:nil="true"/>
+      <ns0:trustedData>false</ns0:trustedData>
+      <ns0:locale>pl_PL</ns0:locale>
+      <ns0:timeZone>Europe/Belgrade</ns0:timeZone>
+      <ns0:formats xsi:nil="true"/>
+      <ns0:decodeRequest>DATE_AND_LOB</ns0:decodeRequest>
+      <ns0:decodeResult>DATE_AND_LOB</ns0:decodeResult>
+      <ns0:sourceOfRequest>
+         <ns0:href>http://localhost/sources/UNKNOWN</ns0:href>
+         <ns0:id>UNKNOWN</ns0:id>
+      </ns0:sourceOfRequest>
+      <ns0:directRequest>false</ns0:directRequest>
+      <ns0:maxDepthResult>3</ns0:maxDepthResult>
+      <ns0:queryRequestContext>
+         <ns0:maxResults>1000</ns0:maxResults>
+         <ns0:queryTimeout>10000000</ns0:queryTimeout>
+         <ns0:lazilyFetchType>false</ns0:lazilyFetchType>
+         <ns0:ignoreAlternateNamesOfFields>true</ns0:ignoreAlternateNamesOfFields>
+         <ns0:cacheUsage>TO_USE</ns0:cacheUsage>
+      </ns0:queryRequestContext>
+      <ns0:saveRequestContext>
+         <ns0:modifyComment>System changes.</ns0:modifyComment>
+         <ns0:valueIsNullIfFieldNotExisisInRequest>false</ns0:valueIsNullIfFieldNotExisisInRequest>
+      </ns0:saveRequestContext>
+   </ns1:context>
+   <ns1:data status="FRAGMENT">
+      <ns0:caseHeader>
+         <ns0:createDate>10-04-2019 10:52:00</ns0:createDate>
+      </ns0:caseHeader>
+      <ns0:param1 position="1.1" xsi:type="ns0:String">test</ns0:param1>
+      <ns0:param1 position="1.2" xsi:type="ns0:String">test_2</ns0:param1>
+      <ns0:param2 position="2" xsi:type="ns0:NameValuePair">
+         <ns0:name>name</ns0:name>
+         <ns0:value>value</ns0:value>
+      </ns0:param2>
+      <ns0:param3 type="TestCcrtoPropertyCase" status="FRAGMENT" position="3" xsi:type="ns0:Case">
+         <ns0:caseHeader>
+            <ns0:createDate>10-04-2019 10:52:00</ns0:createDate>
+         </ns0:caseHeader>
+      </ns0:param3>
+      <ns0:param4 type="TestCcrtoPropertyCase[]" position="4" xsi:type="ns0:List">
+         <ns0:item status="ALL" xsi:type="ns0:Case">
+            <ns0:caseHeader>
+               <ns0:createDate>10-04-2019 10:52:00</ns0:createDate>
+            </ns0:caseHeader>
+         </ns0:item>
+      </ns0:param4>
+      <ns0:param5 type="String[]" position="5" xsi:type="ns0:List">
+         <ns0:item xsi:type="ns0:String">wartość 1</ns0:item>
+         <ns0:item xsi:type="ns0:String">wartość 2</ns0:item>
+         <ns0:item xsi:type="ns0:String">wartość 3</ns0:item>
+         <ns0:item xsi:type="ns0:String">wartość 4</ns0:item>
+         <ns0:item xsi:type="ns0:String">wartość 5</ns0:item>
+      </ns0:param5>
+      <ns0:param6 position="6" xsi:type="ns0:Map">
+         <ns0:entry>
+            <ns0:key>key1</ns0:key>
+            <ns0:value>value1</ns0:value>
+         </ns0:entry>
+         <ns0:entry>
+            <ns0:key>key2</ns0:key>
+            <ns0:value>value2</ns0:value>
+         </ns0:entry>
+         <ns0:entry>
+            <ns0:key>key3</ns0:key>
+            <ns0:value>value3</ns0:value>
+         </ns0:entry>
+         <ns0:entry>
+            <ns0:key>key4</ns0:key>
+            <ns0:value>value4</ns0:value>
+         </ns0:entry>
+      </ns0:param6>
+      <ns0:param7 type="ANY[]" position="7" xsi:type="ns0:List">
+         <ns0:item xsi:type="ns0:String">wartość 1</ns0:item>
+         <ns0:item xsi:type="ns0:Boolean">true</ns0:item>
+         <ns0:item xsi:type="ns0:String">wartość 3</ns0:item>
+         <ns0:item xsi:type="ns0:String">wartość 4</ns0:item>
+         <ns0:item xsi:type="ns0:String">wartość 5</ns0:item>
+      </ns0:param7>
+      <ns0:param8 type="Integer[]" position="8" xsi:type="ns0:List">
+         <ns0:item xsi:type="ns0:Number">1</ns0:item>
+         <ns0:item xsi:type="ns0:Number">2</ns0:item>
+      </ns0:param8>
+      <ns0:param9 type="Double[]" position="9" xsi:type="ns0:List">
+         <ns0:item xsi:type="ns0:Number">1.0</ns0:item>
+         <ns0:item xsi:type="ns0:Number">2.0</ns0:item>
+      </ns0:param9>
+      <ns0:param10 type="Text" position="10" xsi:type="ns0:String">test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, test long text, text, test long text, &lt;a>text&lt;/a>, test long text, test long text, test long text, test long text, text, test long text, test&amp;nbps;long text, test long text, test long text, test long text, test long text, text, test long text, test long text, test long text, test long text, test long text, test long text, </ns0:param10>
+      <ns0:newParam position="11" xsi:type="ns0:String">newParam</ns0:newParam>
+   </ns1:data>
+</ns1:saveRequest>

@@ -11,12 +11,17 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.ccrto.openapi.core.internal.IValueMap;
 import org.ccrto.openapi.core.utils.CcrtoPropertyTypeUtils;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 
@@ -32,6 +37,11 @@ import org.ccrto.openapi.core.utils.CcrtoPropertyTypeUtils;
 public class CcrtoPropertyMap extends CcrtoProperty implements IValueMap {
 
 	private static final long serialVersionUID = 293486657109948155L;
+
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
+	@XmlAttribute(name = "status", required = false)
+	private CcrtoPropertyStatus status;
 
 	private Map<String, String> internalMap;
 
@@ -115,15 +125,6 @@ public class CcrtoPropertyMap extends CcrtoProperty implements IValueMap {
 			value.add(ccrtoEntry);
 		}
 		return value;
-	}
-
-	public void setType(String type) {
-		CcrtoPropertyType fieldType = CcrtoPropertyType.getType(type);
-		if (fieldType == null || !CcrtoPropertyType.MAP.equals(fieldType)) {
-			throw new IllegalArgumentException(
-					String.format("Type should be value: \"%s\"", CcrtoPropertyType.MAP.getName()));
-		}
-		this.type = type;
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -222,6 +223,26 @@ public class CcrtoPropertyMap extends CcrtoProperty implements IValueMap {
 		CcrtoPropertyMap instance = new CcrtoPropertyMap();
 		instance.internalMap = new HashMap<>(initialCapacity);
 		return instance;
+	}
+
+	@Override
+	public CcrtoPropertyStatus getStatus() {
+		return status;
+	}
+
+	@Override
+	public void setStatus(CcrtoPropertyStatus status) {
+		this.status = status;
+	}
+
+	@Override
+	public boolean add(CcrtoProperty e) {
+		if (e instanceof CcrtoPropertyEntry) {
+			CcrtoPropertyEntry entry = (CcrtoPropertyEntry) e;
+			this.getInternalMap().put(entry.getKey(), entry.getValue());
+			return true;
+		}
+		return false;
 	}
 
 }

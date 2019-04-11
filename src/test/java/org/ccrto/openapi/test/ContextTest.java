@@ -86,7 +86,7 @@ public class ContextTest extends TestCase {
 		 * słownikowych. Możliwe wartości o nazwy elementów obiektu enum
 		 * {@link CacheUsage}
 		 */
-		context.addRequestPropertyValue("httpResponseCacheUsage", CacheUsage.NONE.name());
+		context.addRequestPropertyValue("httpResponseCacheUsage", CacheUsage.NONE);
 
 		System.out.println(objectMapper.valueToTree(context));
 		XMLUtils.transformation2XML(Context.class, context, "context_sample.v1.xml");

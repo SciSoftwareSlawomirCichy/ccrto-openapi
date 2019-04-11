@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.commons.lang.StringUtils;
 import org.ccrto.openapi.core.internal.IValueObject;
 
 @XmlRootElement
@@ -16,8 +17,7 @@ public class CcrtoPropertyAny extends CcrtoProperty implements IValueObject {
 
 	@Override
 	public boolean isNull() {
-		// TODO Auto-generated method stub
-		return false;
+		return StringUtils.isBlank(this.propertyValue);
 	}
 
 }

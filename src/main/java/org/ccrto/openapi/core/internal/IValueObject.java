@@ -10,4 +10,8 @@ public interface IValueObject extends Serializable {
 
 	boolean isNull();
 
+	Integer getPosition();
+
+	void setPosition(Integer position);
+
 }

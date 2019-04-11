@@ -1,5 +1,7 @@
 package org.ccrto.openapi.core.internal;
 
+import org.ccrto.openapi.core.CcrtoUrlClass;
+
 public interface IValueURL extends IValueObject {
 
 	/**
@@ -23,5 +25,9 @@ public interface IValueURL extends IValueObject {
 	 *            the {@link #urlReference} to set
 	 */
 	void setUrlReference(String urlReference);
+	
+	CcrtoUrlClass getUrlClass();
+	
+	void setUrlClass(CcrtoUrlClass urlClass);
 
 }

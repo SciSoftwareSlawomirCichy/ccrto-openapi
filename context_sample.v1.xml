@@ -52,6 +52,6 @@
    </ns0:saveRequestContext>
    <ns0:requestProperties>
       <ignoreCaseHeaderInResponse xsi:type="xsd:boolean">false</ignoreCaseHeaderInResponse>
-      <httpResponseCacheUsage xsi:type="xsd:string">NONE</httpResponseCacheUsage>
+      <httpResponseCacheUsage>NONE</httpResponseCacheUsage>
    </ns0:requestProperties>
 </ns0:context>

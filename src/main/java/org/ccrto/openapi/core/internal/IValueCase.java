@@ -4,13 +4,8 @@ import java.util.List;
 
 import org.ccrto.openapi.core.CaseHeader;
 import org.ccrto.openapi.core.CcrtoProperty;
-import org.ccrto.openapi.core.CcrtoPropertyStatus;
 
-public interface IValueCase extends IValueObject {
-
-	CcrtoPropertyStatus getStatus();
-
-	void setStatus(CcrtoPropertyStatus status);
+public interface IValueCase extends IValueWithProperties {
 
 	List<CcrtoProperty> getCaseProperties();
 
@@ -23,7 +18,5 @@ public interface IValueCase extends IValueObject {
 	boolean isEmpty();
 
 	boolean contains(CcrtoProperty o);
-
-	boolean add(CcrtoProperty e);
 
 }

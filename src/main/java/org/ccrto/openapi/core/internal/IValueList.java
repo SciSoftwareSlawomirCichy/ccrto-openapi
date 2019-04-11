@@ -20,7 +20,7 @@ import org.ccrto.openapi.core.CcrtoPropertyList;
  * @version $Revision: 1.1 $
  *
  */
-public interface IValueList extends IValueObject {
+public interface IValueList extends IValueWithProperties {
 
 	/**
 	 * Returns the number of elements in this list. If this list contains more than

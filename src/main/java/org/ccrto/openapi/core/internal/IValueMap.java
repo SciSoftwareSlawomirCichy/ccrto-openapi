@@ -17,7 +17,7 @@ import java.util.function.Function;
  * @version $Revision: 1.1 $
  *
  */
-public interface IValueMap extends IValueObject {
+public interface IValueMap extends IValueWithProperties {
 
 	/**
 	 * Returns the number of key-value mappings in this map. If the map contains

@@ -175,4 +175,18 @@ public class CcrtoPropertyURL extends CcrtoProperty implements IValueURL {
 		instance.urlClass = urlClass;
 		return instance;
 	}
+
+	/**
+	 * @return the {@link #urlClass}
+	 */
+	public CcrtoUrlClass getUrlClass() {
+		return urlClass;
+	}
+
+	/**
+	 * @param urlClass the {@link #urlClass} to set
+	 */
+	public void setUrlClass(CcrtoUrlClass urlClass) {
+		this.urlClass = urlClass;
+	}
 }

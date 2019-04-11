@@ -174,7 +174,7 @@ public class Context implements Serializable {
 
 	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
-	@XmlElement(required = false, nillable = true)
+	@XmlElement(required = false)
 	protected ContextSaveRequest saveRequestContext;
 
 	/**
@@ -183,7 +183,7 @@ public class Context implements Serializable {
 	 */
 	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
-	@XmlElement(required = false, nillable = true)
+	@XmlElement(required = false)
 	@XmlJavaTypeAdapter(ContextRequestPropertiesAdapter.class)
 	protected ContextRequestProperties requestProperties;
 

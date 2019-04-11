@@ -11,20 +11,19 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.ccrto.openapi.core.adapters.CcrtoPropertyAdapter;
 import org.ccrto.openapi.core.internal.IValueCase;
-import org.eclipse.persistence.oxm.annotations.XmlVariableNode;
+import org.ccrto.openapi.core.utils.CcrtoPropertyMetadataSource;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@XmlRootElement(name = "variable")
-@XmlAccessorType(XmlAccessType.NONE)
+@XmlRootElement(name = ObjectFactory.TAG_MAIN_DOCUMENT)
 @XmlType(name = "Case")
+@XmlAccessorType(XmlAccessType.NONE)
 public class CcrtoPropertyCase extends CcrtoProperty implements IValueCase {
 
 	private static final long serialVersionUID = 4800120543973802924L;
@@ -36,15 +35,16 @@ public class CcrtoPropertyCase extends CcrtoProperty implements IValueCase {
 
 	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
-	@XmlElement(required = false, nillable = false)
+	@XmlAttribute(name = "withRequiredPosition", required = false)
+	private Boolean withRequiredPosition;
+
+	@JsonInclude(Include.NON_NULL)
+	@JsonProperty(required = false)
+	@XmlElement(required = true, nillable = false)
 	private CaseHeader caseHeader;
 
-	// @XmlJavaTypeAdapter(CcrtoPropertyAdapter.class)
-	// @XmlVariableNode(value = "propertyName", type = CcrtoProperty.class)
-	private List<CcrtoProperty> caseProperties;
-
 	@XmlAnyElement(lax = true)
-	private List<JAXBElement<CcrtoProperty>> properties;
+	protected List<JAXBElement<CcrtoProperty>> anyProperties;
 
 	/**
 	 * @return the {@link #status}
@@ -62,16 +62,6 @@ public class CcrtoPropertyCase extends CcrtoProperty implements IValueCase {
 	}
 
 	/**
-	 * @return the {@link #caseProperties}
-	 */
-	public List<CcrtoProperty> getCaseProperties() {
-		if (caseProperties == null) {
-			caseProperties = new ArrayList<>();
-		}
-		return caseProperties;
-	}
-
-	/**
 	 * @return the {@link #caseHeader}
 	 */
 	public CaseHeader getCaseHeader() {
@@ -86,14 +76,57 @@ public class CcrtoPropertyCase extends CcrtoProperty implements IValueCase {
 		this.caseHeader = caseHeader;
 	}
 
+	/**
+	 * Metoda pobierająca element XML po nazwie tag'a (wirtualne metody). Użycie
+	 * metody zadeklarowane jest w {@link CcrtoPropertyMetadataSource}
+	 * 
+	 * @param name
+	 *            nazwa pola
+	 * @return obiekt odpowiadający polu
+	 */
+	public Object get(String name) {
+		// TODO zastanowić się czy implementować
+		return null;
+	}
+
+	/**
+	 * Metoda ustawiająca element XML po nazwie tag'a (wirtualne metody). Użycie
+	 * metody zadeklarowane jest w {@link CcrtoPropertyMetadataSource}
+	 * 
+	 * @param name
+	 *            nazwa pola
+	 * @param value
+	 *            wartość pola
+	 */
+	public void set(String name, Object value) {
+		// TODO zastanowić się czy implementować
+	}
+
+	/**
+	 * @return the {@link #caseProperties}
+	 */
+	public List<CcrtoProperty> getCaseProperties() {
+		List<CcrtoProperty> result = new ArrayList<>();
+		for (Object entry : anyProperties) {
+			if (entry instanceof JAXBElement) {
+				@SuppressWarnings("unchecked")
+				JAXBElement<CcrtoProperty> e = (JAXBElement<CcrtoProperty>) entry;
+				CcrtoProperty property = e.getValue();
+				property.setPropertyName(e.getName().getLocalPart());
+				result.add(property);
+			}
+		}
+		return result;
+	}
+
 	/* Overridden (non-Javadoc) */
 	public int size() {
-		return getCaseProperties().size();
+		return getAnyProperties().size();
 	}
 
 	/* Overridden (non-Javadoc) */
 	public boolean isEmpty() {
-		return getCaseProperties().isEmpty();
+		return getAnyProperties().isEmpty();
 	}
 
 	/* Overridden (non-Javadoc) */
@@ -103,15 +136,19 @@ public class CcrtoPropertyCase extends CcrtoProperty implements IValueCase {
 
 	/* Overridden (non-Javadoc) */
 	public boolean add(CcrtoProperty e) {
+		final String schemaName = ObjectFactory.XML_SCHEMA;
 		if (StringUtils.isBlank(e.propertyName)) {
 			throw new IllegalArgumentException("Property name is required!");
 		}
-		if (getCaseProperties().add(e)) {
-			getProperties().add(new JAXBElement<CcrtoProperty>(
-					ObjectFactory.getQName(ObjectFactory.XML_SCHEMA, e.propertyName), CcrtoProperty.class, e));
-			return true;
+		if (withRequiredPosition != null && withRequiredPosition) {
+			QName attrName = ObjectFactory.getQName(schemaName, ObjectFactory.ATTR_OBJECT_WITH_REQUIRED_POSITION);
+			if (e.getOtherAttributes().get(attrName) == null) {
+				throw new IllegalArgumentException(String.format("Attribute %s is required!", attrName));
+			}
 		}
-		return false;
+		QName elementName = ObjectFactory.getQName(schemaName, e.propertyName);
+		JAXBElement<CcrtoProperty> element = new JAXBElement<>(elementName, CcrtoProperty.class, e);
+		return getAnyProperties().add(element);
 	}
 
 	@Override
@@ -125,7 +162,7 @@ public class CcrtoPropertyCase extends CcrtoProperty implements IValueCase {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((caseHeader == null) ? 0 : caseHeader.hashCode());
-		result = prime * result + ((caseProperties == null) ? 0 : caseProperties.hashCode());
+		result = prime * result + ((getCaseProperties() == null) ? 0 : getCaseProperties().hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
@@ -150,27 +187,39 @@ public class CcrtoPropertyCase extends CcrtoProperty implements IValueCase {
 		} else if (!caseHeader.equals(other.caseHeader)) {
 			return false;
 		}
-		if (caseProperties == null) {
-			if (other.caseProperties != null) {
+		if (getCaseProperties() == null) {
+			if (other.getCaseProperties() != null) {
 				return false;
 			}
-		} else if (!caseProperties.equals(other.caseProperties)) {
+		} else if (!getCaseProperties().equals(other.getCaseProperties())) {
 			return false;
 		}
-		if (status != other.status) {
-			return false;
-		}
-		return true;
+		return status != other.status;
 	}
 
 	/**
-	 * @return the {@link #properties}
+	 * @return the {@link #anyProperties}
 	 */
-	public List<JAXBElement<CcrtoProperty>> getProperties() {
-		if (properties == null) {
-			properties = new ArrayList<>();
+	public List<JAXBElement<CcrtoProperty>> getAnyProperties() {
+		if (anyProperties == null) {
+			anyProperties = new ArrayList<>();
 		}
-		return properties;
+		return anyProperties;
+	}
+
+	/**
+	 * @return the {@link #withRequiredPosition}
+	 */
+	public Boolean getWithRequiredPosition() {
+		return withRequiredPosition;
+	}
+
+	/**
+	 * @param withRequiredPosition
+	 *            the {@link #withRequiredPosition} to set
+	 */
+	public void setWithRequiredPosition(Boolean withRequiredPosition) {
+		this.withRequiredPosition = withRequiredPosition;
 	}
 
 }

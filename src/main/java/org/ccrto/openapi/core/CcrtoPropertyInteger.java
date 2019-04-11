@@ -45,10 +45,10 @@ public class CcrtoPropertyInteger extends CcrtoProperty implements IValueInteger
 	@Override
 	public void setType(String type) {
 		CcrtoPropertyType numberType = CcrtoPropertyType.getType(type);
-		if (numberType == null || !CcrtoPropertyType.INTEGER.equals(numberType)
-				|| !CcrtoPropertyType.LONG.equals(numberType)) {
-			throw new IllegalArgumentException("Type should be one of values: \"Long\" or \"Integer\"");
-		}
+//		if (numberType == null || !CcrtoPropertyType.INTEGER.equals(numberType)
+//				|| !CcrtoPropertyType.LONG.equals(numberType)) {
+//			throw new IllegalArgumentException("Type should be one of values: \"Long\" or \"Integer\"");
+//		}
 		this.type = numberType.getName();
 	}
 	

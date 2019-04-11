@@ -55,15 +55,6 @@ public class CcrtoPropertyNameValuePair extends CcrtoProperty implements IValueN
 		this.value = value;
 	}
 
-	public void setType(String type) {
-		CcrtoPropertyType fieldType = CcrtoPropertyType.getType(type);
-		if (fieldType == null || !CcrtoPropertyType.NVP.equals(fieldType)) {
-			throw new IllegalArgumentException(
-					String.format("Type should be value: \"%s\"", CcrtoPropertyType.NVP.getName()));
-		}
-		this.type = type;
-	}
-
 	/* Overridden (non-Javadoc) */
 	@Override
 	public boolean isNull() {

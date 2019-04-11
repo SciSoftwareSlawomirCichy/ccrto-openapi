@@ -29,8 +29,7 @@ public class CcrtoPropertyBoolean extends CcrtoProperty implements IValueBoolean
 	/* Overridden (non-Javadoc) */
 	@Override
 	public Boolean toBoolean() {
-		// TODO Auto-generated method stub
-		return null;
+		return isNull() ? null : Boolean.parseBoolean(propertyValue);
 	}
 
 	/* Overridden (non-Javadoc) */
