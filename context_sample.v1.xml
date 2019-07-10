@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ns0:context xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://scisoftware.pl/CCRTO/1.0/Core">
    <ns0:appName>Java(TM) SE Runtime Environment</ns0:appName>
-   <ns0:appVersion>1.8.0_112-b15</ns0:appVersion>
+   <ns0:appVersion>1.8.0_202-b08</ns0:appVersion>
    <ns0:user>
       <ns0:href>http://localhost/users/slawas</ns0:href>
       <ns0:id>slawas</ns0:id>
