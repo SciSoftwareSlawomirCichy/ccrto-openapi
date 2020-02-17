@@ -176,7 +176,6 @@ public class CcrtoPropertCaseTest extends TestCase {
 		Class<?> clazz = SaveRequest.class;
 		XMLUtils.transformation2XML(clazz, request, fileName);
 
-		fileName = "case_sample.v3.xml";
 		request = (SaveRequest) XMLUtils.transformation2Object(context, clazz, fileName);
 		propertyCase = request.getData().get(0);
 

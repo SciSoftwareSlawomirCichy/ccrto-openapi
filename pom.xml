@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pl.slawas</groupId>
 	<artifactId>ccrto-openapi</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>Context and Case Request Transportable Objects Open API</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,6 +16,7 @@
 		<jackson.annotations.version>2.5.0</jackson.annotations.version>
 		<slf4j.version>1.5.2</slf4j.version>
 		<org.eclipse.persistence.moxy.version>2.7.3-RC1</org.eclipse.persistence.moxy.version>
+		<sccommon-utils.version>1.0.2</sccommon-utils.version>
 		
 		<!-- The destination file for the code coverage report has to be set to the same value
          in the parent pom and in each module pom. Then JaCoCo will add up information in
@@ -23,9 +24,7 @@
 		<sonar.jacoco.reportPaths>${local-project-workspace-path}/mercury/target/jacoco-it.exec</sonar.jacoco.reportPaths>
 		<jacoco.outputDirectory>${local-project-workspace-path}/mercury/target/jacoco-ut</jacoco.outputDirectory>
 		<jmxArgLine></jmxArgLine>
-
 		<additionalArgLine>${jmxArgLine} -Djavax.xml.bind.context.factory=org.eclipse.persistence.jaxb.JAXBContextFactory</additionalArgLine>
-
 	</properties>
 
 	<licenses>
@@ -56,6 +55,14 @@
 		<name>Sci Software</name>
 		<url>http://scisoftware.pl</url>
 	</organization>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub slawascichy Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/slawascichy/ccrto-openapi</url>
+		</repository>
+	</distributionManagement>
 
 	<build>
 		<extensions>
@@ -193,7 +200,7 @@
 		<dependency>
 			<groupId>pl.slawas.sccommon</groupId>
 			<artifactId>sccommon-utils</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>${sccommon-utils.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
