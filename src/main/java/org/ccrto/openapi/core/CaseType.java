@@ -7,8 +7,8 @@ import javax.xml.bind.annotation.XmlElement;
 import org.ccrto.openapi.core.refs.CaseTypeRef;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @XmlAccessorType(XmlAccessType.NONE)
 public class CaseType implements CaseTypeRef {
@@ -28,16 +28,6 @@ public class CaseType implements CaseTypeRef {
 	@JsonProperty(required = false)
 	@XmlElement(required = false)
 	private String type;
-
-	@JsonInclude(Include.NON_NULL)
-	@JsonProperty(required = false)
-	@XmlElement(required = false)
-	private String objectID;
-
-	@JsonInclude(Include.NON_NULL)
-	@JsonProperty(required = false)
-	@XmlElement(required = false)
-	private String rootVersionContextID;
 
 	@JsonInclude(Include.NON_NULL)
 	@JsonProperty(required = false)
@@ -62,8 +52,7 @@ public class CaseType implements CaseTypeRef {
 	}
 
 	/**
-	 * @param id
-	 *            the {@link #id} to set
+	 * @param id the {@link #id} to set
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -77,8 +66,7 @@ public class CaseType implements CaseTypeRef {
 	}
 
 	/**
-	 * @param href
-	 *            the {@link #href} to set
+	 * @param href the {@link #href} to set
 	 */
 	public void setHref(String href) {
 		this.href = href;
@@ -92,41 +80,10 @@ public class CaseType implements CaseTypeRef {
 	}
 
 	/**
-	 * @param type
-	 *            the {@link #type} to set
+	 * @param type the {@link #type} to set
 	 */
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	/**
-	 * @return the {@link #objectID}
-	 */
-	public String getObjectID() {
-		return objectID;
-	}
-
-	/**
-	 * @param objectID
-	 *            the {@link #objectID} to set
-	 */
-	public void setObjectID(String objectID) {
-		this.objectID = objectID;
-	}
-
-	/**
-	 * @return the {@link #rootVersionContextID}
-	 */
-	public String getRootVersionContextID() {
-		return rootVersionContextID;
-	}
-
-	/**
-	 * @param rootVersionContextID
-	 *            the {@link #rootVersionContextID} to set
-	 */
-	public void setRootVersionContextID(String rootVersionContextID) {
-		this.rootVersionContextID = rootVersionContextID;
 	}
 
 	/**
@@ -137,8 +94,7 @@ public class CaseType implements CaseTypeRef {
 	}
 
 	/**
-	 * @param version
-	 *            the {@link #version} to set
+	 * @param version the {@link #version} to set
 	 */
 	public void setVersion(String version) {
 		this.version = version;
@@ -152,8 +108,7 @@ public class CaseType implements CaseTypeRef {
 	}
 
 	/**
-	 * @param pkPropertyNames
-	 *            the {@link #pkPropertyNames} to set
+	 * @param pkPropertyNames the {@link #pkPropertyNames} to set
 	 */
 	public void setPkPropertyNames(String pkPropertyNames) {
 		this.pkPropertyNames = pkPropertyNames;

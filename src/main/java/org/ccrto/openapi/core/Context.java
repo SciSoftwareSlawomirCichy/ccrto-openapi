@@ -148,7 +148,7 @@ public class Context implements Serializable {
 	/** identyfikator zewnętrznego kontekstu np. SESSION_ID */
 	@JsonProperty(required = true)
 	@XmlElement(required = true, nillable = false)
-	protected String rootVersionContextID;
+	protected String contextID;
 
 	/**
 	 * Parametr do obsługi komunikacji pomiędzy node'ami klastra. Oznacza on, że
@@ -208,7 +208,7 @@ public class Context implements Serializable {
 			copy.formats = this.formats.copy();
 		}
 		copy.sourceOfRequest = this.sourceOfRequest;
-		copy.rootVersionContextID = this.rootVersionContextID;
+		copy.contextID = this.contextID;
 		copy.directRequest = this.directRequest;
 		copy.maxDepthResult = this.maxDepthResult;
 		if (this.requestProperties != null) {
@@ -259,8 +259,7 @@ public class Context implements Serializable {
 	/**
 	 * Pobranie wartości dodatkowego parametru ustawionego w kontekście
 	 * 
-	 * @param propertyName
-	 *            nazwa parametru
+	 * @param propertyName nazwa parametru
 	 * @return wartość parametru
 	 */
 	@JsonIgnore
@@ -273,10 +272,8 @@ public class Context implements Serializable {
 	/**
 	 * Ustawianie wartości dodatkowego parametru w kontekście
 	 * 
-	 * @param propertyName
-	 *            nazwa parametru
-	 * @param paramValue
-	 *            wartość parametru
+	 * @param propertyName nazwa parametru
+	 * @param paramValue   wartość parametru
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context addRequestPropertyValue(String propertyName, Serializable paramValue) {
@@ -310,8 +307,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param appName
-	 *            the {@link #appName} to set
+	 * @param appName the {@link #appName} to set
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context setAppName(String appName) {
@@ -327,8 +323,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param appVersion
-	 *            the {@link #appVersion} to set
+	 * @param appVersion the {@link #appVersion} to set
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context setAppVersion(String appVersion) {
@@ -344,8 +339,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param user
-	 *            the {@link #user} to set
+	 * @param user the {@link #user} to set
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context setUser(ContextUser user) {
@@ -361,8 +355,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param currentRole
-	 *            the {@link #currentRole} to set
+	 * @param currentRole the {@link #currentRole} to set
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context setCurrentRole(ContextUserRole currentRole) {
@@ -378,8 +371,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param userRoles
-	 *            the {@link #userRoles} to set
+	 * @param userRoles the {@link #userRoles} to set
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context setUserRoles(Set<ContextUserRole> userRoles) {
@@ -395,8 +387,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param trustedData
-	 *            the {@link #trustedData} to set
+	 * @param trustedData the {@link #trustedData} to set
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context setTrustedData(boolean trustedData) {
@@ -412,8 +403,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param locale
-	 *            the {@link #locale} to set
+	 * @param locale the {@link #locale} to set
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context setLocale(String locale) {
@@ -429,8 +419,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param timeZone
-	 *            the {@link #timeZone} to set
+	 * @param timeZone the {@link #timeZone} to set
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context setTimeZone(String timeZone) {
@@ -446,8 +435,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param formats
-	 *            the {@link #formats} to set
+	 * @param formats the {@link #formats} to set
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context setFormats(ContextFormats formats) {
@@ -463,8 +451,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param sourceOfRequest
-	 *            the {@link #sourceOfRequest} to set
+	 * @param sourceOfRequest the {@link #sourceOfRequest} to set
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context setSourceOfRequest(ContextSourceOfRequest sourceOfRequest) {
@@ -473,19 +460,18 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @return the {@link #rootVersionContextID}
+	 * @return the {@link #contextID}
 	 */
-	public String getRootVersionContextID() {
-		return rootVersionContextID;
+	public String getContextID() {
+		return contextID;
 	}
 
 	/**
-	 * @param rootVersionContextID
-	 *            the {@link #rootVersionContextID} to set
+	 * @param contextID the {@link #contextID} to set
 	 * @return obecny obiekt kontekstu
 	 */
-	public Context setRootVersionContextID(String rootVersionContextID) {
-		this.rootVersionContextID = rootVersionContextID;
+	public Context setContextID(String contextID) {
+		this.contextID = contextID;
 		return this;
 	}
 
@@ -497,8 +483,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param directRequest
-	 *            the {@link #directRequest} to set
+	 * @param directRequest the {@link #directRequest} to set
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context setDirectRequest(boolean directRequest) {
@@ -514,8 +499,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param maxDepthResult
-	 *            the {@link #maxDepthResult} to set
+	 * @param maxDepthResult the {@link #maxDepthResult} to set
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context setMaxDepthResult(Integer maxDepthResult) {
@@ -534,8 +518,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param queryRequestContext
-	 *            the {@link #queryRequestContext} to set
+	 * @param queryRequestContext the {@link #queryRequestContext} to set
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context setQueryRequestContext(ContextQueryRequest queryRequestContext) {
@@ -554,8 +537,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param saveRequestContext
-	 *            the {@link #saveRequestContext} to set
+	 * @param saveRequestContext the {@link #saveRequestContext} to set
 	 * @return obecny obiekt kontekstu
 	 */
 	public Context setSaveRequestContext(ContextSaveRequest saveRequestContext) {
@@ -571,8 +553,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param decodeResult
-	 *            the {@link #decodeResult} to set
+	 * @param decodeResult the {@link #decodeResult} to set
 	 */
 	public void setDecodeResult(DecodeMethod decodeResult) {
 		this.decodeResult = decodeResult;
@@ -586,8 +567,7 @@ public class Context implements Serializable {
 	}
 
 	/**
-	 * @param decodeRequest
-	 *            the {@link #decodeRequest} to set
+	 * @param decodeRequest the {@link #decodeRequest} to set
 	 */
 	public void setDecodeRequest(DecodeMethod decodeRequest) {
 		this.decodeRequest = decodeRequest;
@@ -609,7 +589,7 @@ public class Context implements Serializable {
 		result = prime * result + ((maxDepthResult == null) ? 0 : maxDepthResult.hashCode());
 		result = prime * result + ((queryRequestContext == null) ? 0 : queryRequestContext.hashCode());
 		result = prime * result + ((requestProperties == null) ? 0 : requestProperties.hashCode());
-		result = prime * result + ((rootVersionContextID == null) ? 0 : rootVersionContextID.hashCode());
+		result = prime * result + ((contextID == null) ? 0 : contextID.hashCode());
 		result = prime * result + ((saveRequestContext == null) ? 0 : saveRequestContext.hashCode());
 		result = prime * result + ((sourceOfRequest == null) ? 0 : sourceOfRequest.hashCode());
 		result = prime * result + ((timeZone == null) ? 0 : timeZone.hashCode());
@@ -705,11 +685,11 @@ public class Context implements Serializable {
 		} else if (!requestProperties.equals(other.requestProperties)) {
 			return false;
 		}
-		if (rootVersionContextID == null) {
-			if (other.rootVersionContextID != null) {
+		if (contextID == null) {
+			if (other.contextID != null) {
 				return false;
 			}
-		} else if (!rootVersionContextID.equals(other.rootVersionContextID)) {
+		} else if (!contextID.equals(other.contextID)) {
 			return false;
 		}
 		if (saveRequestContext == null) {
