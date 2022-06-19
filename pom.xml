@@ -16,7 +16,7 @@
 		<jackson.annotations.version>2.5.0</jackson.annotations.version>
 		<slf4j.version>1.5.2</slf4j.version>
 		<org.eclipse.persistence.moxy.version>2.7.3-RC1</org.eclipse.persistence.moxy.version>
-		<sccommon-utils.version>1.0.2</sccommon-utils.version>
+		<sccommon-utils.version>1.0.7</sccommon-utils.version>
 		
 		<!-- The destination file for the code coverage report has to be set to the same value
          in the parent pom and in each module pom. Then JaCoCo will add up information in
