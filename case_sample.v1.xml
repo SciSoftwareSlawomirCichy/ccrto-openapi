@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ns1:saveRequest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://scisoftware.pl/CCRTO/1.0/Messaging" xmlns:ns0="http://scisoftware.pl/CCRTO/1.0/Core">
+<ns1:saveRequest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="${organization.url}/${standard.acronym}/${schema.version}/Messaging" xmlns:ns0="${organization.url}/${standard.acronym}/${schema.version}/Core">
    <ns1:context>
       <ns0:appName>Java(TM) SE Runtime Environment</ns0:appName>
       <ns0:appVersion>1.8.0_202-b08</ns0:appVersion>
@@ -38,7 +38,7 @@
    </ns1:context>
    <ns1:data status="FRAGMENT">
       <ns0:caseHeader>
-         <ns0:createDate>13-06-2022 21:13:18</ns0:createDate>
+         <ns0:createDate>01-07-2022 20:43:56</ns0:createDate>
       </ns0:caseHeader>
       <ns0:param1 position="1.1" xsi:type="ns0:String">test</ns0:param1>
       <ns0:param1 position="1.2" xsi:type="ns0:String">test_2</ns0:param1>
@@ -48,13 +48,13 @@
       </ns0:param2>
       <ns0:param3 type="TestCcrtoPropertyCase" status="FRAGMENT" position="3" xsi:type="ns0:Case">
          <ns0:caseHeader>
-            <ns0:createDate>13-06-2022 21:13:18</ns0:createDate>
+            <ns0:createDate>01-07-2022 20:43:56</ns0:createDate>
          </ns0:caseHeader>
       </ns0:param3>
       <ns0:param4 type="TestCcrtoPropertyCase[]" position="4" xsi:type="ns0:List">
          <ns0:item status="ALL" xsi:type="ns0:Case">
             <ns0:caseHeader>
-               <ns0:createDate>13-06-2022 21:13:18</ns0:createDate>
+               <ns0:createDate>01-07-2022 20:43:56</ns0:createDate>
             </ns0:caseHeader>
          </ns0:item>
       </ns0:param4>

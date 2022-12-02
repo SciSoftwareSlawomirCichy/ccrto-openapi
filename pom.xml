@@ -58,10 +58,19 @@
 
 	<distributionManagement>
 		<repository>
-			<id>github</id>
-			<name>GitHub slawascichy Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/slawascichy/ccrto-openapi</url>
+			<uniqueVersion>false</uniqueVersion>
+			<id>sci-maven-releases</id>
+			<name>Releases</name>
+			<url>https://nexusrepo.scisoftware.pl/repository/sci-maven-releases</url>
+			<layout>default</layout>
 		</repository>
+		<snapshotRepository>
+			<uniqueVersion>true</uniqueVersion>
+			<id>sci-maven-snapshots</id>
+			<name>Snapshots</name>
+			<url>https://nexusrepo.scisoftware.pl/repository/sci-maven-snapshots</url>
+			<layout>default</layout>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<build>
