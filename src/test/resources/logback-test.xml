@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.out</target>
+		<encoder>
+			<pattern>%d{ISO8601} %-5level %m%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>target/test.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>target/test.%i.log</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>1</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>10MB</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>%d{ISO8601} %-5level [%F:%L] : %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="pro.ibpm.mercury" level="INFO" />
+	<logger name="pro.ibpm.mercury.connectors.http" level="INFO" />
+	<logger name="pl.scisoftware" level="INFO" />
+	<logger name="pl.slawas" level="INFO" />
+	<logger name="org.hibernate" level="INFO" />
+	<logger name="net.sf.ehcache" level="INFO" />
+	<logger name="org.springframework" level="INFO" />
+
+	<root level="DEBUG">
+		<appender-ref ref="stdout" />
+		<appender-ref ref="fileAppender" />
+	</root>
+</configuration>
